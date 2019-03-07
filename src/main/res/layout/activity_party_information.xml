@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="faz.ie.partyapp.PartyInformation">
+
+
+    <EditText
+        android:id="@+id/partyNameTxtField"
+        android:layout_width="300dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginEnd="55dp"
+        android:layout_marginBottom="11dp"
+        android:ems="10"
+        android:hint="Event Name"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/countyTxtField"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <EditText
+        android:id="@+id/hostNameTxtField"
+        android:layout_width="300dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginEnd="55dp"
+        android:layout_marginBottom="13dp"
+        android:ems="10"
+        android:hint="Host Name"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/partyDescriptionTxtField"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/countyTxtField" />
+
+    <EditText
+        android:id="@+id/countyTxtField"
+        android:layout_width="300dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginEnd="55dp"
+        android:layout_marginBottom="13dp"
+        android:ems="10"
+        android:hint="County"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/hostNameTxtField"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/partyNameTxtField" />
+
+    <EditText
+        android:id="@+id/partyDescriptionTxtField"
+        android:layout_width="300dp"
+        android:layout_height="90dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginEnd="55dp"
+        android:layout_marginBottom="66dp"
+        android:ems="10"
+        android:hint="Event Description"
+        android:inputType="textMultiLine"
+        app:layout_constraintBottom_toTopOf="@+id/nextButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hostNameTxtField" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="154dp"
+        android:layout_marginBottom="68dp"
+        android:fontFamily="sans-serif-thin"
+        android:text="Tell us about your event"
+        android:textAlignment="center"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/partyNameTxtField"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/nextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="61dp"
+        android:background="@drawable/buttonstyle1"
+        android:text="Finish"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/partyDescriptionTxtField" />
+</android.support.constraint.ConstraintLayout>

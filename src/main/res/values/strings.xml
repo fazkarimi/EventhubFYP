@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Eventhub</string>
+
+    <string name="menuSettings">Settings</string>
+    <string name="menuProfile">My Profile</string>
+    <string name="menuSignOut">Sign Out</string>
+
+</resources>

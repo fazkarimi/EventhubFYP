@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="faz.ie.partyapp.MainActivity"
+    tools:layout_editor_absoluteY="81dp">
+
+
+    <ImageView
+        android:id="@+id/userProfileImage"
+        android:layout_width="250dp"
+        android:layout_height="275dp"
+        android:layout_marginTop="127dp"
+        android:layout_marginBottom="28dp"
+        app:layout_constraintBottom_toTopOf="@+id/nameTxtField"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/user" />
+
+    <EditText
+        android:id="@+id/updateNameTxt"
+        android:layout_width="303dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="54dp"
+        android:layout_marginTop="430dp"
+        android:layout_marginEnd="54dp"
+        android:layout_marginBottom="174dp"
+        android:ems="10"
+        android:hint="Full Name"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/deleteButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <EditText
+        android:id="@+id/updatePhoneTxt"
+        android:layout_width="303dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="54dp"
+        android:layout_marginEnd="54dp"
+        android:layout_marginBottom="102dp"
+        android:ems="10"
+        android:hint="Telephone Number"
+        android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toTopOf="@+id/updateButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameTxtField" />
+
+
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="130dp"
+        android:layout_height="70dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/updatebuttonstyle"
+        android:onClick="deleteAccount"
+        android:backgroundTint="@color/green"
+        android:text="Update "
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/updateButton"
+        app:layout_constraintTop_toBottomOf="@+id/nameTxtField"
+        tools:ignore="OnClick" />
+
+    <Button
+        android:id="@+id/updateButton"
+        android:layout_width="130dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="149dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/deletebuttonstyle"
+        android:onClick="deleteAccount"
+        android:text="Delete"
+        android:backgroundTint="@color/red"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/deleteButton"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="OnClick" />
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1686567941",
+    "firebase_url": "https://party-app-b58bd.firebaseio.com",
+    "project_id": "party-app-b58bd",
+    "storage_bucket": "party-app-b58bd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1686567941:android:d8477865fa01825d",
+        "android_client_info": {
+          "package_name": "faz.ie.partyapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1686567941-icatpqhu7d12j83int327lbladulr1ps.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "faz.ie.partyapp",
+            "certificate_hash": "0c9937737f22a32c01fd753f23b3d2f621c92e45"
+          }
+        },
+        {
+          "client_id": "1686567941-30b75c1r25nocq1bdgrvk0akl3gq3j21.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeZBl_9bKjIL257ZgkWvwZYIuMk2bZGjI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1686567941-30b75c1r25nocq1bdgrvk0akl3gq3j21.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
