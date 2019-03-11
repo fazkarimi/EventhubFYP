@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import faz.ie.partyapp.R;
@@ -45,7 +47,8 @@ public class arrayAdapter extends ArrayAdapter<User>
       FullName.setText(user_item.getFullName());
       Age.setText(user_item.getAge());
       Gender.setText(user_item.getGender());
-      image.setImageResource(R.mipmap.user);
+      Glide.with(getContext()).load(user_item.getProfileImageUrl()).into(image);
+      //image.setImageResource(R.mipmap.user);
 
       return convertView;
 

@@ -5,20 +5,23 @@ public class User {
     private String FullName;
     private String Gender;
     private String Age;
-    public String PhoneNumber;
-    public String EmailAddress;
-    public  String userId;
+    private String PhoneNumber;
+    private String EmailAddress;
+    private  String userId;
+    private String profileImageUrl;
+
 
     public User()
     {
 
     }
 
-    public User(String userId,String fullName, String gender, String age) {
+    public User(String userId,String fullName, String gender, String age, String profileImageUrl) {
         FullName = fullName;
         Gender = gender;
         Age = age;
         this.userId = userId;
+        this.profileImageUrl = profileImageUrl;
     }
 
     public String getFullName() {
@@ -67,5 +70,13 @@ public class User {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getProfileImageUrl() {
+        return profileImageUrl;
+    }
+
+    public void setProfileImageUrl(String userId) {
+        this.profileImageUrl = profileImageUrl;
     }
 }

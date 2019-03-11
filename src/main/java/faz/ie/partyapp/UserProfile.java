@@ -58,7 +58,7 @@ public class UserProfile extends AppCompatActivity {
 
     //String mUserType = getIntent().getExtras().getString("userType");
 
-    private String userID, FullName, profileImageURL, PhoneNumber, mUserType;
+    private String userID, FullName, profileImageUrl, PhoneNumber, mUserType;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -87,13 +87,14 @@ public class UserProfile extends AppCompatActivity {
         mFullNameTextView = (EditText) findViewById(R.id.updateNameTxt);
 
         mAuth = FirebaseAuth.getInstance();
+
         userID = mAuth.getCurrentUser().getUid();
 
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
 
         displayUserInformation();
 
-        mProfileImage.setOnClickListener(new View.OnClickListener() {
+         mProfileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_PICK);
@@ -130,8 +131,8 @@ public class UserProfile extends AppCompatActivity {
                     }
 
                     if (map.get("profileImageUrl") != null) {
-                        profileImageURL = map.get("profileImageUrl").toString();
-                        Glide.with(getApplication()).load(profileImageURL).into(mProfileImage);
+                        profileImageUrl = map.get("profileImageUrl").toString();
+                        Glide.with(getApplication()).load(profileImageUrl).into(mProfileImage);
                     }
                 }
             }
@@ -151,8 +152,8 @@ public class UserProfile extends AppCompatActivity {
         userinfo.put("FullName", mFullNameTextView);
         userinfo.put("PhoneNumber", mPhoneNumberTextView);
         mUserDatabase.updateChildren(userinfo);
-        if (reultURI == null) {
-            StorageReference filePath = FirebaseStorage.getInstance().getReference().child("ProfileImage").child(userID);
+        if (reultURI != null) {
+            StorageReference filePath = FirebaseStorage.getInstance().getReference().child("ProfileImages").child(userID);
             Bitmap bitmap = null;
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getApplication().getContentResolver(), reultURI);
@@ -177,6 +178,7 @@ public class UserProfile extends AppCompatActivity {
 
                     Map userinfo = new HashMap();
                     userinfo.put("profileImageUrl", downloadURL.toString());
+                    mUserDatabase.updateChildren(userinfo);
                     finish();
                     return;
                 }
