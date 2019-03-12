@@ -47,7 +47,18 @@ public class arrayAdapter extends ArrayAdapter<User>
       FullName.setText(user_item.getFullName());
       Age.setText(user_item.getAge());
       Gender.setText(user_item.getGender());
-      Glide.with(getContext()).load(user_item.getProfileImageUrl()).into(image);
+
+      switch (user_item.getProfileImageUrl())
+      {
+          case "default":
+              Glide.with(convertView.getContext()).load(R.mipmap.user).into(image);
+              break;
+          default:
+                Glide.clear(image);
+              Glide.with(convertView.getContext()).load(user_item.getProfileImageUrl()).into(image);
+              break;
+      }
+      //Glide.with(getContext()).load(user_item.getProfileImageUrl()).into(image);
       //image.setImageResource(R.mipmap.user);
 
       return convertView;

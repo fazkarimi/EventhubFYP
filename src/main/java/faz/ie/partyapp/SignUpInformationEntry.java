@@ -84,6 +84,7 @@ public class SignUpInformationEntry extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                // GETTING DETAILS FROM USER
                 final String Email = mEmail.getText().toString();
                 final String Password = mPassword.getText().toString();
                 final String FullName = mFullName.getText().toString();

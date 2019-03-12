@@ -232,15 +232,23 @@ public class MainActivity extends AppCompatActivity {
     public void getOppositeUsertypeUsers() {
         userTypeDB.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                if (dataSnapshot.exists() && !dataSnapshot.child("Connections").child("Not Interested").hasChild(currentUid) && !dataSnapshot.child("Connections").child("Interested").hasChild(currentUid) && dataSnapshot.child("userType").getValue().toString().equals(otherUsertype)) {
-                    if (dataSnapshot.child("FullName").getValue() != null && dataSnapshot.child("Gender").getValue() != null && dataSnapshot.child("Age").getValue() != null) {
-                        User item = new User(dataSnapshot.getKey(),dataSnapshot.child("FullName").getValue().toString(), dataSnapshot.child("Gender").getValue().toString(), dataSnapshot.child("Age").getValue().toString(), dataSnapshot.child("profileImageUrl").getValue().toString());
-                        rowItems.add(item);
-                        mArrayAdapter.notifyDataSetChanged();
+            public void onChildAdded(DataSnapshot dataSnapshot, String s)
+                {
+                    if (dataSnapshot.exists() && !dataSnapshot.child("Connections").child("Not Interested").hasChild(currentUid) && !dataSnapshot.child("Connections").child("Interested").hasChild(currentUid) && dataSnapshot.child("userType").getValue().toString().equals(otherUsertype))
+                    {
+                        String profileImageUrl = "default";
+                        if(!dataSnapshot.child("profileImageUrl").equals("default"))
+                        {
+                            profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
+                        }
+                        if (dataSnapshot.child("FullName").getValue() != null && dataSnapshot.child("Gender").getValue() != null && dataSnapshot.child("Age").getValue() != null)
+                        {
+                            User item = new User(dataSnapshot.getKey(),dataSnapshot.child("FullName").getValue().toString(), dataSnapshot.child("Gender").getValue().toString(), dataSnapshot.child("Age").getValue().toString(), dataSnapshot.child("profileImageUrl").getValue().toString());
+                            rowItems.add(item);
+                            mArrayAdapter.notifyDataSetChanged();
+                        }
                     }
                 }
-            }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
