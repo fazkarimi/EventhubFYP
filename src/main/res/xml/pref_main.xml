@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory android:title="General">
+    <PreferenceCategory android:title="Account Settings">
         <EditTextPreference
             android:defaultValue="@string/default_gallery_storage"
             android:key="@string/key_gallery_name"
             android:summary="@string/default_gallery_storage"
             android:title="@string/title_gallery_storage" />
+
+        <Preference
+            android:summary="@string/delete_acc"
+            android:title="@string/title_delete" />
+        <Preference
+            android:key="@string/key_send_feedback"
+            android:summary="@string/summary_support_signout"
+            android:title="@string/title_send_feedback" />
 
         <CheckBoxPreference
             android:defaultValue="true"
