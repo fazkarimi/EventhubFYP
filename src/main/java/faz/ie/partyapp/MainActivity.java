@@ -280,7 +280,7 @@ public class MainActivity extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.menuSettings:
-                Intent intent2 = new Intent(MainActivity.this, Settings.class);
+                Intent intent2 = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(intent2);
             default:
         }

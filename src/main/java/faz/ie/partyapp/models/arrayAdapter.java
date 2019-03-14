@@ -54,7 +54,7 @@ public class arrayAdapter extends ArrayAdapter<User>
               Glide.with(convertView.getContext()).load(R.mipmap.user).into(image);
               break;
           default:
-                Glide.clear(image);
+              Glide.clear(image);
               Glide.with(convertView.getContext()).load(user_item.getProfileImageUrl()).into(image);
               break;
       }
