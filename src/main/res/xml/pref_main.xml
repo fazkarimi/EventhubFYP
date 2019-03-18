@@ -1,57 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title="Account Settings">
-        <EditTextPreference
-            android:defaultValue="@string/default_gallery_storage"
-            android:key="@string/key_gallery_name"
-            android:summary="@string/default_gallery_storage"
-            android:title="@string/title_gallery_storage" />
+
+        <Preference android:summary="@string/manage_acc" android:title="@string/manage_title">
+            <intent
+            android:parentActivityName = "ie.partyapp.Intent.MainActivity"/>
+
+        </Preference>
+
 
         <Preference
             android:summary="@string/delete_acc"
+            android:key="@string/key_delete_account"
             android:title="@string/title_delete" />
+
         <Preference
-            android:key="@string/key_send_feedback"
-            android:summary="@string/summary_support_signout"
-            android:title="@string/title_send_feedback" />
+            android:summary="@string/signout_summary"
+            android:title="@string/signout" />
 
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="@string/key_upload_over_wifi"
-            android:summary="@string/summary_upload_over_wifi"
-            android:title="@string/title_auto_upload" />
-
-        <ListPreference
-            android:defaultValue="3"
-            android:dialogTitle="@string/title_upload_quality"
-            android:entries="@array/pref_upload_quality_entries"
-            android:entryValues="@array/pref_upload_quality_values"
-            android:key="@string/key_upload_quality"
-            android:summary="@string/summary_upload_video_quality"
-            android:title="@string/title_upload_quality" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory android:title="@string/pref_title_notifications">
-
-        <SwitchPreference
-            android:defaultValue="true"
-            android:key="@string/notifications_new_message"
-            android:title="@string/title_new_notification_sound" />
-
-        <RingtonePreference
-            android:defaultValue="content://settings/system/notification_sound"
-            android:dependency="notifications_new_message"
-            android:key="@string/key_notifications_new_message_ringtone"
-            android:ringtoneType="notification"
-            android:summary="@string/summary_choose_ringtone"
-            android:title="@string/pref_title_ringtone" />
-
-        <SwitchPreference
-            android:defaultValue="true"
-            android:key="@string/key_vibrate"
-            android:summary="@string/summary_vibrate"
-            android:title="@string/title_vibrate" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/pref_header_about">
@@ -67,27 +33,24 @@
         <Preference
             android:key="@string/key_send_feedback"
             android:summary="@string/summary_support"
-            android:title="@string/title_send_feedback" />
+            android:title="@string/feedback" />
 
         <!-- preference opens url in browser -->
         <Preference
             android:summary="@string/summary_faq"
             android:title="@string/title_faq">
             <intent
-                android:action="android.intent.action.VIEW"
-                android:data="@string/url_faq" />
+                android:action="android.intent.action.VIEW"/>
         </Preference>
 
         <Preference android:title="@string/privacy_policy">
             <intent
-                android:action="android.intent.action.VIEW"
-                android:data="@string/url_privacy" />
+                android:action="android.intent.action.VIEW"/>
         </Preference>
 
         <Preference android:title="@string/title_terms">
             <intent
-                android:action="android.intent.action.VIEW"
-                android:data="@string/url_terms" />
+                android:action="android.intent.action." />
         </Preference>
     </PreferenceCategory>
 </PreferenceScreen>

@@ -75,10 +75,10 @@ public class UserProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
-
+        setTitle("Profile");
         progressDialog = new ProgressDialog(this);
 
-        mProfileImage = (ImageView) findViewById(R.id.userImage);
+        mProfileImage = (ImageView) findViewById(R.id.userProfileImage);
 
         deleteButton = (Button) findViewById(R.id.deleteButton);
         updateButton = (Button) findViewById(R.id.updateButton);
@@ -160,9 +160,10 @@ public class UserProfile extends AppCompatActivity {
         PhoneNumber = mPhoneNumberTextView.getText().toString();
 
         Map userinfo = new HashMap();
-        userinfo.put("FullName", mFullNameTextView);
-        userinfo.put("PhoneNumber", mPhoneNumberTextView);
+        userinfo.put("FullName", FullName);
+        userinfo.put("PhoneNumber", PhoneNumber);
         mUserDatabase.updateChildren(userinfo);
+
         if (reultURI != null) {
             StorageReference filePath = FirebaseStorage.getInstance().getReference().child("ProfileImages").child(userID);
             Bitmap bitmap = null;
