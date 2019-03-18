@@ -15,6 +15,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -69,13 +70,12 @@ public class UserProfile extends AppCompatActivity {
     private Uri reultURI;
     User user;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
-        setTitle("Profile");
+        setTitle("My Profile");
+
         progressDialog = new ProgressDialog(this);
 
         mProfileImage = (ImageView) findViewById(R.id.userProfileImage);
@@ -113,6 +113,10 @@ public class UserProfile extends AppCompatActivity {
         });
 
     }
+
+
+
+
 
     private void displayUserInformation() {
         mUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -222,6 +226,14 @@ public class UserProfile extends AppCompatActivity {
             });
         }
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

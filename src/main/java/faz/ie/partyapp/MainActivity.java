@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_activity);
-
+        setTitle("");
         myDialog = new Dialog(this);
 
         userTypeDB = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -266,6 +266,10 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+
+            case R.id.home:
+                onBackPressed();
+                break;
             case R.id.menuProfile:
                 Intent intent1 = new Intent(MainActivity.this, UserProfile.class);
                 startActivity(intent1);
@@ -281,6 +285,17 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menuSettings:
                 Intent intent2 = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(intent2);
+                break;
+
+            case R.id.action_main:
+                Intent intent4 = new Intent(MainActivity.this, MainActivity.class);
+                startActivity(intent4);
+                    break;
+
+            case R.id.action_profile:
+                Intent intent5 = new Intent(MainActivity.this, UserProfile.class);
+                startActivity(intent5);
+                break;
             default:
         }
         return super.onOptionsItemSelected(item);

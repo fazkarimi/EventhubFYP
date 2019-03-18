@@ -31,6 +31,11 @@
     <string name="key_signout">key_signout</string>
     <string name="key_delete_account">key_delete_account</string>
 
+    <!-- action bar button strings -->
+    <string name="actionbarProfile"></string>
+    <string name="actionbarMain">1.0</string>
+
+
     <!-- Example General settings -->
     <string name="pref_header_general">General</string>
     <string name="pref_title_social_recommendations">Enable social recommendations</string>

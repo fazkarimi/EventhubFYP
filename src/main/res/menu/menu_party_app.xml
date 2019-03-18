@@ -10,8 +10,7 @@
         android:enabled="true"
         android:checkable="false"
         android:title="Settings"
-        android:visible="true" />
-
+        android:visible="true"/>
     <item
         android:id="@+id/menuProfile"
         android:layout_width="wrap_content"
@@ -19,16 +18,24 @@
         android:enabled="true"
         android:checkable="false"
         android:title="Profile"
-        android:visible="true" />
-
-
+        android:visible="true"/>
     <item
         android:id="@+id/menuSignOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:checkable="false"
         android:enabled="true"
-        android:title="Sign Out" />
+        android:title="Sign Out"/>
+    <item
+        android:id="@+id/action_profile"
+        android:title="Profile"
+        android:icon="@drawable/profiles_icon"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/action_main"
+        android:icon="@drawable/matches_icon"
+        android:title="Main"
+        app:showAsAction="always"/>
 </menu>
 
 

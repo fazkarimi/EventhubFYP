@@ -51,7 +51,7 @@ public class arrayAdapter extends ArrayAdapter<User>
       switch (user_item.getProfileImageUrl())
       {
           case "default":
-              Glide.with(convertView.getContext()).load(R.mipmap.ic_launcher).into(image);
+              Glide.with(convertView.getContext()).load(R.mipmap.user).into(image);
              // image.setImageResource(R.mipmap.user);
               break;
           default:
