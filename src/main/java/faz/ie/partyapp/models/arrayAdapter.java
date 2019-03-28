@@ -42,7 +42,7 @@ public class arrayAdapter extends ArrayAdapter<User>
       //update information...
 
 
-      ImageView image = (ImageView)convertView.findViewById(R.id.userProfileImage);
+      ImageView image = (ImageView)convertView.findViewById(R.id.profileImage);
 
       FullName.setText(user_item.getFullName());
      // Age.setText(user_item.getAge());
@@ -52,10 +52,9 @@ public class arrayAdapter extends ArrayAdapter<User>
       {
           case "default":
               Glide.with(convertView.getContext()).load(R.mipmap.user).into(image);
-             // image.setImageResource(R.mipmap.user);
               break;
           default:
-              Glide.clear(image);
+              Glide.clear(image); //makes sure the image is cleared before placing a new one
               Glide.with(convertView.getContext()).load(user_item.getProfileImageUrl()).into(image);
               break;
       }

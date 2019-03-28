@@ -78,7 +78,7 @@ public class UserProfile extends AppCompatActivity {
 
         progressDialog = new ProgressDialog(this);
 
-        mProfileImage = (ImageView) findViewById(R.id.userProfileImage);
+        mProfileImage = (ImageView) findViewById(R.id.profileImage);
 
         deleteButton = (Button) findViewById(R.id.deleteButton);
         updateButton = (Button) findViewById(R.id.updateButton);
@@ -115,9 +115,6 @@ public class UserProfile extends AppCompatActivity {
     }
 
 
-
-
-
     private void displayUserInformation() {
         mUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -147,7 +144,7 @@ public class UserProfile extends AppCompatActivity {
                                 Glide.with(getApplication()).load(profileImageUrl).into(mProfileImage);
                                 break;
                         }
-                        Glide.with(getApplication()).load(profileImageUrl).into(mProfileImage);
+                       // Glide.with(getApplication()).load(profileImageUrl).into(mProfileImage);
                     }
                 }
             }
@@ -168,8 +165,9 @@ public class UserProfile extends AppCompatActivity {
         userinfo.put("PhoneNumber", PhoneNumber);
         mUserDatabase.updateChildren(userinfo);
 
-        if (reultURI != null) {
-            StorageReference filePath = FirebaseStorage.getInstance().getReference().child("ProfileImages").child(userID);
+        if (reultURI != null)
+        {
+            StorageReference filePath = FirebaseStorage.getInstance().getReference().child("profileImages").child(userID);
             Bitmap bitmap = null;
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getApplication().getContentResolver(), reultURI);
@@ -181,12 +179,14 @@ public class UserProfile extends AppCompatActivity {
             byte[] data = baos.toByteArray();
 
             UploadTask uploadTask = filePath.putBytes(data);
+
             uploadTask.addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     finish();
                 }
             });
+
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -204,6 +204,8 @@ public class UserProfile extends AppCompatActivity {
             finish();
         }
     }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public void deleteAccount(View view) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -233,7 +235,6 @@ public class UserProfile extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -63,7 +64,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_activity);
-        setTitle("");
+
+        //getSupportActionBar().setDisplayShowHomeEnabled(true);
+       // getSupportActionBar().setLogo(R.drawable.logo3);
+       // getSupportActionBar().setDisplayUseLogoEnabled(true);
+        setTitle("Eventhub");
+
         myDialog = new Dialog(this);
 
         userTypeDB = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -237,15 +243,18 @@ public class MainActivity extends AppCompatActivity {
                     if (dataSnapshot.exists() && !dataSnapshot.child("Connections").child("Not Interested").hasChild(currentUid) && !dataSnapshot.child("Connections").child("Interested").hasChild(currentUid) && dataSnapshot.child("userType").getValue().toString().equals(otherUsertype))
                     {
                         String profileImageUrl = "default";
-                        if(!dataSnapshot.child("profileImageUrl").equals("default")) {
-                            profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
+                        if(!dataSnapshot.child("profileImageUrl").getValue().equals("default")) //if the profile imagfe url doesnt equal to "default"
+                        {
+                             profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
+                        }
 
                             if (dataSnapshot.child("FullName").getValue() != null && dataSnapshot.child("Gender").getValue() != null && dataSnapshot.child("Age").getValue() != null && dataSnapshot.child("profileImageUrl").getValue() != null) {
-                                User item = new User(dataSnapshot.getKey(), dataSnapshot.child("FullName").getValue().toString(), dataSnapshot.child("Gender").getValue().toString(), dataSnapshot.child("Age").getValue().toString(), dataSnapshot.child("profileImageUrl").getValue().toString());
+                                User item = new User(dataSnapshot.getKey(), dataSnapshot.child("FullName").getValue().toString(), dataSnapshot.child("Gender").getValue().toString(), dataSnapshot.child("Age").getValue().toString(), profileImageUrl);
                                 rowItems.add(item);
                                 mArrayAdapter.notifyDataSetChanged();
                             }
-                        }
+
+
                     }
                 }
 

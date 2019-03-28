@@ -76,7 +76,7 @@ public class User {
         return profileImageUrl;
     }
 
-    public void setProfileImageUrl(String userId) {
+    public void setProfileImageUrl(String profileImageUrl) {
         this.profileImageUrl = profileImageUrl;
     }
 }
