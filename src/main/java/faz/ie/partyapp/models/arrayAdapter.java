@@ -35,26 +35,24 @@ public class arrayAdapter extends ArrayAdapter<User>
       }
 
       TextView FullName = (TextView) convertView.findViewById(R.id.userName);
-     // TextView Age = (TextView) convertView.findViewById(R.id.userAge);
-      //TextView Gender = (TextView) convertView.findViewById(R.id.userGender);
+      ImageView image = (ImageView) convertView.findViewById(R.id.userImage);
+      TextView Age = (TextView) convertView.findViewById(R.id.userAge);
+      TextView Gender = (TextView) convertView.findViewById(R.id.userGender);
 
 
       //update information...
 
-
-      ImageView image = (ImageView)convertView.findViewById(R.id.profileImage);
-
       FullName.setText(user_item.getFullName());
-     // Age.setText(user_item.getAge());
-    //  Gender.setText(user_item.getGender());
+      Age.setText(user_item.getAge());
+      Gender.setText(user_item.getGender());
 
       switch (user_item.getProfileImageUrl())
       {
-          case "default":
-              Glide.with(convertView.getContext()).load(R.mipmap.user).into(image);
+          case "defaultUserImage":
+              Glide.with(convertView.getContext()).load(R.mipmap.default_user).into(image);
               break;
           default:
-              Glide.clear(image); //makes sure the image is cleared before placing a new one
+              //Glide.clear(image); //makes sure the image is cleared before placing a new one
               Glide.with(convertView.getContext()).load(user_item.getProfileImageUrl()).into(image);
               break;
       }

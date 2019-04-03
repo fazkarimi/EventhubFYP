@@ -15,6 +15,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -39,6 +40,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.io.Console;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -67,7 +69,8 @@ public class UserProfile extends AppCompatActivity {
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mUserDatabase;
 
-    private Uri reultURI;
+
+    private Uri resultURI;
     User user;
 
     @Override
@@ -99,21 +102,30 @@ public class UserProfile extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType("image/*");
-                startActivityForResult(intent, 1);
-                finish();
+                startActivityForResult(intent,1);
+                //finish();
 
             }
         });
+
+    deleteButton.setOnClickListener(new View.OnClickListener()
+    {
+    @Override
+    public void onClick(View view) {
+        deleteAccount(view);
+    }
+});
+
 
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 updateUserInformation();
+                //Toast.makeText(UserProfile.this, "Information Updated", Toast.LENGTH_SHORT).show();
             }
         });
 
     }
-
 
     private void displayUserInformation() {
         mUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -132,15 +144,17 @@ public class UserProfile extends AppCompatActivity {
                     }
 
                     Glide.clear(mProfileImage);
-                    if (map.get("profileImageUrl") != null) {
+                    if (map.get("profileImageUrl") != null)
+                    {
                         profileImageUrl = map.get("profileImageUrl").toString();
 
                         switch (profileImageUrl)
                         {
-                            case "default":
-                                Glide.with(getApplication()).load(R.mipmap.user).into(mProfileImage);
+                            case "defaultUserImage":
+                                Glide.with(getApplication()).load(R.mipmap.default_user).into(mProfileImage);
                                 break;
                             default:
+
                                 Glide.with(getApplication()).load(profileImageUrl).into(mProfileImage);
                                 break;
                         }
@@ -160,48 +174,54 @@ public class UserProfile extends AppCompatActivity {
         FullName = mFullNameTextView.getText().toString();
         PhoneNumber = mPhoneNumberTextView.getText().toString();
 
-        Map userinfo = new HashMap();
-        userinfo.put("FullName", FullName);
-        userinfo.put("PhoneNumber", PhoneNumber);
-        mUserDatabase.updateChildren(userinfo);
+            Map userinfo = new HashMap();
+            userinfo.put("FullName", FullName);
+            userinfo.put("PhoneNumber", PhoneNumber);
+            mUserDatabase.updateChildren(userinfo);
 
-        if (reultURI != null)
+        if (resultURI != null)
         {
-            StorageReference filePath = FirebaseStorage.getInstance().getReference().child("profileImages").child(userID);
+            final StorageReference filePath = FirebaseStorage.getInstance().getReference().child("profileImages").child(userID);
             Bitmap bitmap = null;
             try {
-                bitmap = MediaStore.Images.Media.getBitmap(getApplication().getContentResolver(), reultURI);
+                bitmap = MediaStore.Images.Media.getBitmap(getApplication().getContentResolver(), resultURI);
             } catch (IOException e) {
                 e.printStackTrace();
             }
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 10, baos);
             byte[] data = baos.toByteArray();
 
             UploadTask uploadTask = filePath.putBytes(data);
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>()
+            {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot)
+                {
+                    filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri)
+                        {
+                            Map userinfo = new HashMap();
+                            userinfo.put("profileImageUrl",  uri.toString());
+                            mUserDatabase.updateChildren(userinfo);
+                            //finish();
+                        }
+                    });
+                }
+            });
 
             uploadTask.addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    finish();
-                }
-            });
-
-            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Uri downloadURL = taskSnapshot.getDownloadUrl();
-
-                    Map userinfo = new HashMap();
-                    userinfo.put("profileImageUrl", downloadURL.toString());
-                    mUserDatabase.updateChildren(userinfo);
-                    finish();
-                    return;
+                    //finish();
+                    Toast.makeText(UserProfile.this, "error!!!", Toast.LENGTH_SHORT).show();
                 }
             });
 
         } else {
-            finish();
+           finish();
+
         }
     }
 
@@ -219,7 +239,6 @@ public class UserProfile extends AppCompatActivity {
                         Intent intent = new Intent(UserProfile.this, LoginORSignup.class);
                         startActivity(intent);
                         finish();
-
 
                     } else {
                         Toast.makeText(UserProfile.this, "Unable to Delete Account", Toast.LENGTH_SHORT).show();
@@ -240,15 +259,20 @@ public class UserProfile extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 1 && requestCode == Activity.RESULT_OK) {
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
             final Uri ImageUri = data.getData();
-            reultURI = ImageUri;
-            mProfileImage.setImageURI(reultURI);
+            resultURI = ImageUri;
+            mProfileImage.setImageURI(resultURI);
 
         }
     }
+
+
 }
 //
+
+
+
 
         /*mAgeTextView = (EditText)findViewById(R.id.updateAgeTxt);
         mGenderTextView = (EditText)findViewById(R.id.updateGenderTxt);

@@ -12,8 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat">
-        <activity android:name=".SettingsActivity">
-        </activity>
+        <activity android:name=".SettingsActivity"></activity>
         <activity android:name=".chooseToHostOrAttend" />
         <activity
             android:name=".SplashScreen"
@@ -41,12 +40,12 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".UserProfile"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".MainActivity"/>
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"
-            />
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
+
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".MainActivity" />
     </application>
 
 </manifest>

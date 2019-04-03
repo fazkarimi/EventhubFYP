@@ -242,10 +242,10 @@ public class MainActivity extends AppCompatActivity {
                 {
                     if (dataSnapshot.exists() && !dataSnapshot.child("Connections").child("Not Interested").hasChild(currentUid) && !dataSnapshot.child("Connections").child("Interested").hasChild(currentUid) && dataSnapshot.child("userType").getValue().toString().equals(otherUsertype))
                     {
-                        String profileImageUrl = "default";
-                        if(!dataSnapshot.child("profileImageUrl").getValue().equals("default")) //if the profile imagfe url doesnt equal to "default"
+                        String profileImageUrl = "defaultUserImage";
+                        if(!dataSnapshot.child("profileImageUrl").getValue().equals("defaultUserImage")) //if the profile imagfe url doesnt equal to "default"
                         {
-                             profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
+                            profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
                         }
 
                             if (dataSnapshot.child("FullName").getValue() != null && dataSnapshot.child("Gender").getValue() != null && dataSnapshot.child("Age").getValue() != null && dataSnapshot.child("profileImageUrl").getValue() != null) {
@@ -253,6 +253,7 @@ public class MainActivity extends AppCompatActivity {
                                 rowItems.add(item);
                                 mArrayAdapter.notifyDataSetChanged();
                             }
+
 
 
                     }

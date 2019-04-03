@@ -10,18 +10,16 @@ public class LoginORSignup extends AppCompatActivity {
 
     private Button loginButton;
     private Button signInButton;
+    private Button clickMeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_orsignup);
 
-
         getSupportActionBar().hide();
         loginButton = (Button)findViewById(R.id.theLoginButton);
         signInButton = (Button)findViewById(R.id.theSignupButton);
-
-
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

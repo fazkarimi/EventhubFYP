@@ -125,7 +125,7 @@ public class SignUpInformationEntry extends AppCompatActivity {
                                 userInfo.put("Age", Age);
                                 userInfo.put("Password", Password);
                                 userInfo.put("userType", radioButton.getText().toString());
-                                userInfo.put("profileImageUrl", "default");
+                                userInfo.put("profileImageUrl", "defaultUserImage");
                                 currentUserDB.updateChildren(userInfo);
 
                                /* if(!Gender.equals("male") || !Gender.equals("Male") || !Gender.equals("female") ||!Gender.equals("Female"))
@@ -174,7 +174,7 @@ public class SignUpInformationEntry extends AppCompatActivity {
                                 userInfo.put("Age", Age);
                                 userInfo.put("Password", Password);
                                 userInfo.put("userType", radioButton.getText().toString());
-                                userInfo.put("profileImageUrl", "default");
+                                userInfo.put("profileImageUrl", "defaultUserImage");
 
 
                                 currentUserDB.updateChildren(userInfo);

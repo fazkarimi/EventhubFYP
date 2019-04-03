@@ -8,7 +8,7 @@ public class User {
     private String PhoneNumber;
     private String EmailAddress;
     private  String userId;
-    private String profileImageUrl;
+    private String ProfileImageUrl;
 
 
     public User()
@@ -21,7 +21,7 @@ public class User {
         Gender = gender;
         Age = age;
         this.userId = userId;
-        this.profileImageUrl = profileImageUrl;
+        this.ProfileImageUrl = profileImageUrl;
     }
 
     public String getFullName() {
@@ -73,10 +73,10 @@ public class User {
     }
 
     public String getProfileImageUrl() {
-        return profileImageUrl;
+        return ProfileImageUrl;
     }
 
     public void setProfileImageUrl(String profileImageUrl) {
-        this.profileImageUrl = profileImageUrl;
+        this.ProfileImageUrl = profileImageUrl;
     }
 }

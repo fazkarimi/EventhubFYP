@@ -18,9 +18,10 @@
         android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toTopOf="@+id/updateNameTxt"
         app:layout_constraintEnd_toEndOf="parent"
+        android:src="@mipmap/default_user"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/user" />
+        />
 
     <EditText
         android:id="@+id/updateNameTxt"
