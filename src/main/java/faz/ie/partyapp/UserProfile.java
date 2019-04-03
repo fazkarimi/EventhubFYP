@@ -204,7 +204,7 @@ public class UserProfile extends AppCompatActivity {
                             userinfo.put("profileImageUrl",  uri.toString());
                             mUserDatabase.updateChildren(userinfo);
                             Toast.makeText(UserProfile.this, "Information changed successfully", Toast.LENGTH_SHORT).show();
-                            //finish();
+                            finish();
                         }
                     });
                 }

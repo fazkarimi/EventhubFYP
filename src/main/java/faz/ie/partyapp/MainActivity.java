@@ -108,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
                 userTypeDB.child(userid).child("Connections").child("Interested").child(currentUid).setValue(true);
                 //Toast.makeText(MainActivity.this, "Interested!", Toast.LENGTH_SHORT).show();
                 isConnectionMatch(userid);
-
             }
 
             @Override
