@@ -137,12 +137,10 @@ public class UserProfile extends AppCompatActivity {
                         FullName = map.get("FullName").toString();
                         mFullNameTextView.setText(FullName);
                     }
-
                     if (map.get("PhoneNumber") != null) {
                         PhoneNumber = map.get("PhoneNumber").toString();
                         mPhoneNumberTextView.setText(PhoneNumber);
                     }
-
                     Glide.clear(mProfileImage);
                     if (map.get("profileImageUrl") != null)
                     {
@@ -151,7 +149,7 @@ public class UserProfile extends AppCompatActivity {
                         switch (profileImageUrl)
                         {
                             case "defaultUserImage":
-                                Glide.with(getApplication()).load(R.mipmap.default_user).into(mProfileImage);
+                                Glide.with(getApplication()).load(R.mipmap.user).into(mProfileImage);
                                 break;
                             default:
 
@@ -189,7 +187,7 @@ public class UserProfile extends AppCompatActivity {
                 e.printStackTrace();
             }
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 10, baos);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
             byte[] data = baos.toByteArray();
 
             UploadTask uploadTask = filePath.putBytes(data);
@@ -205,6 +203,7 @@ public class UserProfile extends AppCompatActivity {
                             Map userinfo = new HashMap();
                             userinfo.put("profileImageUrl",  uri.toString());
                             mUserDatabase.updateChildren(userinfo);
+                            Toast.makeText(UserProfile.this, "Information changed successfully", Toast.LENGTH_SHORT).show();
                             //finish();
                         }
                     });

@@ -18,7 +18,7 @@
         android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toTopOf="@+id/updateNameTxt"
         app:layout_constraintEnd_toEndOf="parent"
-        android:src="@mipmap/default_user"
+        android:src="@mipmap/user"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />

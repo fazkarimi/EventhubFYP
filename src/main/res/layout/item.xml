@@ -22,7 +22,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/userImage"
-                />
+                android:contentDescription="userProfileImage"
+                android:scaleType="centerCrop"/>
 
         <TextView
             android:id="@+id/userName"

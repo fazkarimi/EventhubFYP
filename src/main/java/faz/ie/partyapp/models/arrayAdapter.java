@@ -49,7 +49,7 @@ public class arrayAdapter extends ArrayAdapter<User>
       switch (user_item.getProfileImageUrl())
       {
           case "defaultUserImage":
-              Glide.with(convertView.getContext()).load(R.mipmap.default_user).into(image);
+              Glide.with(convertView.getContext()).load(R.mipmap.user).into(image);
               break;
           default:
               //Glide.clear(image); //makes sure the image is cleared before placing a new one
