@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat">
-        <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".matches.Matches"></activity>
+        <activity android:name=".SettingsActivity" />
         <activity android:name=".chooseToHostOrAttend" />
         <activity
             android:name=".SplashScreen"

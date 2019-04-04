@@ -24,6 +24,7 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation 'com.android.support:design:26.1.0'
 
+
     implementation 'com.lorentzos.swipecards:library:1.0.9'    //not my work , need to reference.
 
     implementation 'com.google.firebase:firebase-auth:11.8.0'

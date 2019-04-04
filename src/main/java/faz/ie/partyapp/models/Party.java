@@ -8,6 +8,7 @@ public class Party {
     public String county;
     public String partyDescription;
     public String userId;
+    //public String ProfileImageUrl;
 
     public Party(){
 
@@ -18,6 +19,7 @@ public class Party {
         this.hostName = hostName;
         this.county = county;
         this.partyDescription = partyDescription;
+       // this.ProfileImageUrl = profileImageUrl;
     }
 
     public String getPartyName() {
@@ -60,14 +62,5 @@ public class Party {
         this.userId = userId;
     }
 
-    /*public String getLocationPostCode()
-    {
-        return locationPostcode;
-    }
-
-    public void setLocationPostcode(String locationPostcode)
-    {
-        this.locationPostcode = locationPostcode;
-    }*/
 }
 

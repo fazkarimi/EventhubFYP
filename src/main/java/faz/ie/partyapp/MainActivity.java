@@ -20,11 +20,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -39,6 +37,7 @@ import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 import java.util.ArrayList;
 import java.util.List;
 
+import faz.ie.partyapp.matches.Matches;
 import faz.ie.partyapp.models.User;
 import faz.ie.partyapp.models.arrayAdapter;
 
@@ -48,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     User user_data[];
 
     private arrayAdapter mArrayAdapter;
+    private arrayAdapter mEventArrayAdapter;
     private int i;
 
     private String currentUid;
@@ -80,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
         rowItems = new ArrayList<User>();
 
         mArrayAdapter = new arrayAdapter(this, R.layout.item, rowItems);
+        //mEventArrayAdapter = new arrayAdapter(this, R.layout.eventitem, rowItems);
+
 
         SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
 
@@ -93,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onLeftCardExit(Object dataObject) {
-
             User userInfo =(User) dataObject;
                 String userid = userInfo.getUserId();
                 userTypeDB.child(userid).child("Connections").child("Not Interested").child(currentUid).setValue(true);
@@ -131,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
 
             public void onItemClicked(int itemPosition, Object dataObject) {
 
-                Toast.makeText(MainActivity.this, "Next Picture...", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "Next Picture...", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -296,8 +297,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent2);
                 break;
 
-            case R.id.action_main:
-                Intent intent4 = new Intent(MainActivity.this, MainActivity.class);
+            case R.id.action_matches:
+                Intent intent4 = new Intent(MainActivity.this, Matches.class);
                 startActivity(intent4);
                     break;
 

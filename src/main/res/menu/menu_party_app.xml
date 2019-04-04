@@ -32,7 +32,7 @@
         android:icon="@drawable/profiles_icon"
         app:showAsAction="always"/>
     <item
-        android:id="@+id/action_main"
+        android:id="@+id/action_matches"
         android:icon="@drawable/matches_icon"
         android:title="Main"
         app:showAsAction="always"/>
