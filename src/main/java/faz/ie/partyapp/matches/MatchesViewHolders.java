@@ -11,7 +11,7 @@ import faz.ie.partyapp.R;
 public class MatchesViewHolders extends RecyclerView.ViewHolder implements View.OnClickListener
 {
 
-    public TextView matchesIDTextView;
+    public TextView matchesIDTextView, matchesName;
 
     public ImageView matchImageView;
 
@@ -19,8 +19,8 @@ public class MatchesViewHolders extends RecyclerView.ViewHolder implements View.
         super(itemView);
 
         itemView.setOnClickListener(this);
-
-        matchesIDTextView = (TextView) itemView.findViewById(R.id.matchID);
+        matchesName = (TextView) itemView.findViewById(R.id.matchName);
+        matchImageView = (ImageView) itemView.findViewById(R.id.matchImage);
     }
 
     @Override

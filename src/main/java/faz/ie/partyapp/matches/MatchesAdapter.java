@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import faz.ie.partyapp.R;
@@ -35,7 +37,13 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesViewHolders>
     @Override
     public void onBindViewHolder(MatchesViewHolders holder, int position)
     {
-        holder.matchesIDTextView.setText(matcheslist.get(position).getUserid());
+
+        holder.matchesName.setText(matcheslist.get(position).getFullName());
+
+        if(!matcheslist.get(position).getProfileImageUrl().equals("defaultUserImage"))
+        {
+            Glide.with(context).load(matcheslist.get(position).getProfileImageUrl()).into(holder.matchImageView);
+        }
     }
 
     @Override
