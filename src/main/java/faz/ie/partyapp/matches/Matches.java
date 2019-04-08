@@ -19,8 +19,9 @@ public class Matches extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matches);
+        System.out.print("ffffffdsgfdgsg"+mRecyclerView);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
-        mRecyclerView = this.findViewById(R.id.recyclerView);
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setHasFixedSize(true);
         mMatchesLayoutManager = new LinearLayoutManager(Matches.this);
@@ -34,8 +35,7 @@ public class Matches extends AppCompatActivity {
             resultMatches.add(obj);
         }
 
-
-    mMatchesAdapter.notifyDataSetChanged();
+        mMatchesAdapter.notifyDataSetChanged();
 
     }
 
