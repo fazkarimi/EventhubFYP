@@ -4,15 +4,6 @@
     tools:context="faz.ie.partyapp.PartyApp">
 
     <item
-        android:id="@+id/menuSettings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:enabled="true"
-        android:checkable="false"
-        android:title="Settings"
-        android:visible="true"/>
-
-    <item
         android:id="@+id/menuSignOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,6 +14,11 @@
         android:id="@+id/action_profile"
         android:title="My Profile"
         android:icon="@drawable/profiles_icon"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/action_main"
+        android:icon="@drawable/main_icon"
+        android:title="Home Page"
         app:showAsAction="always"/>
     <item
         android:id="@+id/action_matches"

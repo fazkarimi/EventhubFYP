@@ -18,6 +18,8 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -27,6 +29,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import faz.ie.partyapp.matches.Matches;
 
 public class SettingsActivity extends AppCompatPreferenceActivity  {
 
@@ -132,13 +136,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity  {
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-        }
-        return super.onOptionsItemSelected(item);
-    }
+
 
 
     /**
@@ -167,4 +165,44 @@ public class SettingsActivity extends AppCompatPreferenceActivity  {
     {
 
     }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case R.id.home:
+                onBackPressed();
+                break;
+            case R.id.menuSignOut:
+                FirebaseAuth.getInstance().signOut();
+                Intent intent3 = new Intent(SettingsActivity.this, LoginORSignup.class);
+                startActivity(intent3);
+                Toast.makeText(SettingsActivity.this, "Signed out successfully", Toast.LENGTH_SHORT).show();
+                finish();
+                return true;
+
+            case R.id.action_main:
+                Intent intent4 = new Intent(SettingsActivity.this, MainActivity.class);
+                startActivity(intent4);
+                break;
+
+            case R.id.action_matches:
+                Intent intent5 = new Intent(SettingsActivity.this, Matches.class);
+                startActivity(intent5);
+                break;
+
+            case R.id.action_profile:
+                Intent intent6 = new Intent(SettingsActivity.this, UserProfile.class);
+                startActivity(intent6);
+                break;
+            default:
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.settings_activity_menu, menu);
+        return true;
+    }
+
 }

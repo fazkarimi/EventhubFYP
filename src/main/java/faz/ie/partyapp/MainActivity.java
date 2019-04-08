@@ -280,11 +280,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.home:
                 onBackPressed();
                 break;
-            case R.id.menuProfile:
-                Intent intent1 = new Intent(MainActivity.this, UserProfile.class);
-                startActivity(intent1);
-                break;
-
             case R.id.menuSignOut:
                 FirebaseAuth.getInstance().signOut();
                 Intent intent3 = new Intent(MainActivity.this, LoginORSignup.class);
