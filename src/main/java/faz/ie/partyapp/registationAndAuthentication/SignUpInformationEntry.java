@@ -3,7 +3,7 @@ REFERENCE..
 - https://www.youtube.com/watch?v=JDnaV7f-eNI
  */
 
-package faz.ie.partyapp;
+package faz.ie.partyapp.registationAndAuthentication;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -27,6 +27,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import faz.ie.partyapp.main.MainActivity;
+import faz.ie.partyapp.R;
 
 public class SignUpInformationEntry extends AppCompatActivity {
 

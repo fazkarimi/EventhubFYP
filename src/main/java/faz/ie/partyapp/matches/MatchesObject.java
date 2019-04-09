@@ -1,38 +1,33 @@
 package faz.ie.partyapp.matches;
 
-public class MatchesObject
-{
-   // private String userId;
+public class MatchesObject {
+    private String userId;
     private String FullName;
     private String profileImageUrl;
-
-
-
-    public MatchesObject(String fullName,String profileImageUrl) {
-
-       // this.userId = userid;
+    public MatchesObject (String userId, String fullName, String profileImageUrl){
+        this.userId = userId;
         this.FullName = fullName;
         this.profileImageUrl = profileImageUrl;
     }
 
-   /* public String getUserid() {
+    public String getUserId(){
         return userId;
     }
-    public void setUserid(String userid) {
-        userId = userid;
-    }*/
+    public void setUserID(String userID){
+        this.userId = userId;
+    }
 
-    public String getFullName() {
+    public String getFullName(){
         return FullName;
     }
-    public void setFullName(String fullName) {
-        FullName = fullName;
+    public void setFullName(String fullName){
+        this.FullName = fullName;
     }
 
-    public String getProfileImageUrl() {
+    public String getProfileImageUrl(){
         return profileImageUrl;
     }
-    public void setProfileImageUrl(String profileImageUrl) {
-        profileImageUrl = profileImageUrl;
+    public void setProfileImageUrl(String profileImageUrl){
+        this.profileImageUrl = profileImageUrl;
     }
 }

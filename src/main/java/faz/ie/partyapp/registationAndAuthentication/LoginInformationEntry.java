@@ -4,7 +4,7 @@
 REFERENCE..
 - https://www.youtube.com/watch?v=JDnaV7f-eNI
  */
-package faz.ie.partyapp;
+package faz.ie.partyapp.registationAndAuthentication;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -21,6 +21,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import faz.ie.partyapp.main.MainActivity;
+import faz.ie.partyapp.R;
 
 public class LoginInformationEntry extends AppCompatActivity {
 
@@ -94,7 +97,7 @@ public class LoginInformationEntry extends AppCompatActivity {
                         else
                         {
                             Toast.makeText(LoginInformationEntry.this, "Error Logging In", Toast.LENGTH_SHORT).show();
-                            Intent intent =new Intent(LoginInformationEntry.this,LoginORSignup.class);
+                            Intent intent =new Intent(LoginInformationEntry.this, LoginORSignup.class);
                             startActivity(intent);
                         }
 

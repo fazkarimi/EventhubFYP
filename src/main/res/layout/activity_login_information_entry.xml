@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="faz.ie.partyapp.LoginInformationEntry"
+    tools:context="faz.ie.partyapp.registationAndAuthentication.LoginInformationEntry"
     tools:layout_editor_absoluteX="8dp"
     tools:layout_editor_absoluteY="8dp">
 

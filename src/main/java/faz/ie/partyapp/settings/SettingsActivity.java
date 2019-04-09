@@ -1,23 +1,16 @@
-package faz.ie.partyapp;
+package faz.ie.partyapp.settings;
 
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.preference.RingtonePreference;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -30,9 +23,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import faz.ie.partyapp.main.MainActivity;
+import faz.ie.partyapp.R;
+import faz.ie.partyapp.others.AppCompatPreferenceActivity;
+import faz.ie.partyapp.registationAndAuthentication.LoginORSignup;
 import faz.ie.partyapp.matches.Matches;
 
-public class SettingsActivity extends AppCompatPreferenceActivity  {
+public class SettingsActivity extends AppCompatPreferenceActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;

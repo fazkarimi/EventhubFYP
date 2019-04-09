@@ -20,11 +20,13 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import faz.ie.partyapp.LoginORSignup;
-import faz.ie.partyapp.MainActivity;
+import faz.ie.partyapp.chat.ChatAdapter;
+import faz.ie.partyapp.chat.ChatObject;
+import faz.ie.partyapp.registationAndAuthentication.LoginORSignup;
+import faz.ie.partyapp.main.MainActivity;
 import faz.ie.partyapp.R;
-import faz.ie.partyapp.SettingsActivity;
-import faz.ie.partyapp.UserProfile;
+import faz.ie.partyapp.settings.SettingsActivity;
+import faz.ie.partyapp.settings.UserProfile;
 
 public class Matches extends AppCompatActivity {
     public RecyclerView mRecyclerView;
@@ -41,7 +43,6 @@ public class Matches extends AppCompatActivity {
         currentUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setHasFixedSize(true);
         mMatchesLayoutManager = new LinearLayoutManager(Matches.this);
@@ -50,8 +51,6 @@ public class Matches extends AppCompatActivity {
         mRecyclerView.setAdapter(mMatchesAdapter);
 
         getUserMatchID();
-
-
 
     }
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -134,9 +133,15 @@ public class Matches extends AppCompatActivity {
                     if(dataSnapshot.child("FullName").getValue() != null)
                     {
                         FullName = dataSnapshot.child("FullName").getValue().toString();
-                        profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
+
                     }
-                    MatchesObject obj = new MatchesObject(FullName,profileImageUrl);
+                    if(dataSnapshot.child("profileImageUrl").getValue() != null)
+                    {
+                        profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
+
+                    }
+
+                    MatchesObject obj = new MatchesObject(userId,FullName,profileImageUrl);
                     resultMatches.add(obj);
                     mMatchesAdapter.notifyDataSetChanged();
                 }

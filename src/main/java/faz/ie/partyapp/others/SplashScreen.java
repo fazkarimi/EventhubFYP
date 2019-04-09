@@ -1,9 +1,12 @@
-package faz.ie.partyapp;
+package faz.ie.partyapp.others;
 
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import faz.ie.partyapp.R;
+import faz.ie.partyapp.registationAndAuthentication.LoginORSignup;
 
 public class SplashScreen extends AppCompatActivity {
 

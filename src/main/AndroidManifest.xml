@@ -12,43 +12,47 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat">
+        <activity android:name=".chat.Chat"></activity>
         <activity
             android:name=".matches.Matches"
-            android:parentActivityName=".MainActivity"
-       />
-        <activity android:name=".SettingsActivity" />
-        <activity android:name=".chooseToHostOrAttend" />
+            android:parentActivityName=".main.MainActivity"
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".SplashScreen"
+            android:name=".settings.SettingsActivity"
+            android:parentActivityName=".main.MainActivity" />
+        <activity android:name=".registationAndAuthentication.chooseToHostOrAttend" />
+        <activity
+            android:name=".others.SplashScreen"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginORSignup"
+            android:name=".registationAndAuthentication.LoginORSignup"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".LoginInformationEntry"
+            android:name=".registationAndAuthentication.LoginInformationEntry"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SignUpInformationEntry"
+            android:name=".registationAndAuthentication.SignUpInformationEntry"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivity"
+            android:name=".main.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".PartyInformation"
+            android:name=".registationAndAuthentication.PartyInformation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".UserProfile"
-            android:parentActivityName=".MainActivity"
+            android:name=".settings.UserProfile"
+            android:parentActivityName=".main.MainActivity"
             android:screenOrientation="portrait" />
 
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
-            android:value=".MainActivity" />
+            android:value=".main.MainActivity" />
     </application>
 
 </manifest>

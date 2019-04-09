@@ -2,7 +2,6 @@ package faz.ie.partyapp.matches;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +15,12 @@ import faz.ie.partyapp.R;
 public class MatchesAdapter extends RecyclerView.Adapter<MatchesViewHolders>
 {
 
-    private List<MatchesObject> matcheslist;
+    private List<MatchesObject> matchesList;
     private Context context;
 
     public MatchesAdapter(List<MatchesObject>matcheslist, Context context)
     {
-        this.matcheslist = matcheslist;
+        this.matchesList = matcheslist;
         this.context = context;
     }
     @Override
@@ -37,17 +36,17 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesViewHolders>
     @Override
     public void onBindViewHolder(MatchesViewHolders holder, int position)
     {
+        holder.mMatchId.setText(matchesList.get(position).getUserId());
+        holder.mMatchName.setText(matchesList.get(position).getFullName());
 
-        holder.matchesName.setText(matcheslist.get(position).getFullName());
-
-        if(!matcheslist.get(position).getProfileImageUrl().equals("defaultUserImage"))
-        {
-            Glide.with(context).load(matcheslist.get(position).getProfileImageUrl()).into(holder.matchImageView);
+        if(!matchesList.get(position).getProfileImageUrl().equals("defaultUserImage")){
+            Glide.with(context).load(matchesList.get(position).getProfileImageUrl()).into(holder.mMatchImage);
         }
+
     }
 
     @Override
     public int getItemCount() {
-        return matcheslist.size();
+        return matchesList.size();
     }
 }

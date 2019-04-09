@@ -1,4 +1,4 @@
-package faz.ie.partyapp;
+package faz.ie.partyapp.others;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;

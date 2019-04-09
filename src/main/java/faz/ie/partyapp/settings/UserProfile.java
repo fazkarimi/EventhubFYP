@@ -4,7 +4,7 @@ REFERENCE..
 https://www.youtube.com/watch?v=eJ0OFxR4xFw
  */
 
-package faz.ie.partyapp;
+package faz.ie.partyapp.settings;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -15,7 +15,6 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -40,11 +39,12 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-import java.io.Console;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import faz.ie.partyapp.R;
+import faz.ie.partyapp.registationAndAuthentication.LoginORSignup;
 import faz.ie.partyapp.models.User;
 
 
@@ -56,7 +56,7 @@ public class UserProfile extends AppCompatActivity {
 
     private Button deleteButton;
     private Button updateButton;
-
+    private ProgressDialog myProgressDialog2;
     private ImageView mProfileImage;
 
     //String mUserType = getIntent().getExtras().getString("userType");
@@ -77,6 +77,7 @@ public class UserProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
+        myProgressDialog2 = new ProgressDialog(this);
         setTitle("My Profile");
 
         progressDialog = new ProgressDialog(this);
@@ -112,6 +113,8 @@ public class UserProfile extends AppCompatActivity {
     {
     @Override
     public void onClick(View view) {
+        myProgressDialog2.setMessage("Deleting Account...");
+        myProgressDialog2.show();
         deleteAccount(view);
     }
 });
@@ -120,8 +123,11 @@ public class UserProfile extends AppCompatActivity {
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                myProgressDialog2.setMessage("Updating Information...");
+                myProgressDialog2.show();
                 updateUserInformation();
                 //Toast.makeText(UserProfile.this, "Information Updated", Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -203,7 +209,7 @@ public class UserProfile extends AppCompatActivity {
                             Map userinfo = new HashMap();
                             userinfo.put("profileImageUrl",  uri.toString());
                             mUserDatabase.updateChildren(userinfo);
-                            Toast.makeText(UserProfile.this, "Information changed successfully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UserProfile.this, "Information Updated", Toast.LENGTH_SHORT).show();
                             finish();
                         }
                     });

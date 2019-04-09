@@ -5,7 +5,7 @@
     android:id="@+id/maleOrFemale"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="faz.ie.partyapp.SignUpInformationEntry"
+    tools:context="faz.ie.partyapp.registationAndAuthentication.SignUpInformationEntry"
     tools:layout_editor_absoluteY="81dp">
 
     <RadioGroup

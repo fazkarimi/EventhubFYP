@@ -3,7 +3,7 @@ REFERENCE..
 - https://firebase.google.com/docs/database/android/read-and-write
  */
 
-package faz.ie.partyapp;
+package faz.ie.partyapp.registationAndAuthentication;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -19,6 +19,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import faz.ie.partyapp.main.MainActivity;
+import faz.ie.partyapp.R;
 import faz.ie.partyapp.models.Party;
 
 public class PartyInformation extends AppCompatActivity {

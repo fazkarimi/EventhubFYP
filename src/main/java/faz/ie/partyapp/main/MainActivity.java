@@ -7,7 +7,7 @@
 
 
 
-package faz.ie.partyapp;
+package faz.ie.partyapp.main;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -37,9 +37,13 @@ import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 import java.util.ArrayList;
 import java.util.List;
 
+import faz.ie.partyapp.R;
+import faz.ie.partyapp.registationAndAuthentication.LoginORSignup;
 import faz.ie.partyapp.matches.Matches;
 import faz.ie.partyapp.models.User;
 import faz.ie.partyapp.models.arrayAdapter;
+import faz.ie.partyapp.settings.SettingsActivity;
+import faz.ie.partyapp.settings.UserProfile;
 
 public class MainActivity extends AppCompatActivity {
 
