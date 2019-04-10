@@ -42,7 +42,6 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesViewHolders>
         if(!matchesList.get(position).getProfileImageUrl().equals("defaultUserImage")){
             Glide.with(context).load(matchesList.get(position).getProfileImageUrl()).into(holder.mMatchImage);
         }
-
     }
 
     @Override

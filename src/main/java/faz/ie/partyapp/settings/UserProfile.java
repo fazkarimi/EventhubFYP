@@ -246,7 +246,9 @@ public class UserProfile extends AppCompatActivity {
                         finish();
 
                     } else {
+
                         Toast.makeText(UserProfile.this, "Unable to Delete Account", Toast.LENGTH_SHORT).show();
+                        myProgressDialog2.dismiss();
                     }
                 }
             });

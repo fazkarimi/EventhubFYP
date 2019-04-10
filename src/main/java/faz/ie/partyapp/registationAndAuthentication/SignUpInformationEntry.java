@@ -204,6 +204,7 @@ public class SignUpInformationEntry extends AppCompatActivity {
                         }
                         else
                         {
+                            myProgressDialog.dismiss();
                             Toast.makeText(SignUpInformationEntry.this, "Sign Up was not successful!", Toast.LENGTH_SHORT).show();
                         }
                     }

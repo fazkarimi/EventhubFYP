@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
     List<User> rowItems;
 
     private DatabaseReference userTypeDB;
+   // private DatabaseReference matchesDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +78,8 @@ public class MainActivity extends AppCompatActivity {
         myDialog = new Dialog(this);
 
         userTypeDB = FirebaseDatabase.getInstance().getReference().child("Users");
+        //matchesDB = FirebaseDatabase.getInstance().getReference().child("Chat");
+
         mAuth = FirebaseAuth.getInstance();
 
         currentUid = mAuth.getCurrentUser().getUid();
@@ -180,8 +183,10 @@ public class MainActivity extends AppCompatActivity {
                 if(dataSnapshot.exists())
                 {
                     showPopUpDialog(); //new match pop up dialog
-                    userTypeDB.child(dataSnapshot.getKey()).child("Connections").child("Matches").child(currentUid).setValue(true);
-                    userTypeDB.child(currentUid).child("Connections").child("Matches").child(dataSnapshot.getKey()).setValue(true);
+                    String key = FirebaseDatabase.getInstance().getReference().child("Chat").push().getKey(); // creates a new child named Users with a unique ID
+                    //String key = matchesDB.push().getKey();
+                    userTypeDB.child(dataSnapshot.getKey()).child("Connections").child("Matches").child(currentUid).child("ChatId").setValue(key); // adds a child "ChatId" to matches
+                    userTypeDB.child(currentUid).child("Connections").child("Matches").child(dataSnapshot.getKey()).child("ChatId").setValue(key);
 
                     //trigger email to be sent
 
@@ -247,9 +252,9 @@ public class MainActivity extends AppCompatActivity {
                     if (dataSnapshot.exists() && !dataSnapshot.child("Connections").child("Not Interested").hasChild(currentUid) && !dataSnapshot.child("Connections").child("Interested").hasChild(currentUid) && dataSnapshot.child("userType").getValue().toString().equals(otherUsertype))
                     {
                         String profileImageUrl = "defaultUserImage";
-                        if(!dataSnapshot.child("profileImageUrl").getValue().equals("defaultUserImage")) //if the profile imagfe url doesnt equal to "default"
+                        if(!dataSnapshot.child("profileImageUrl").getValue().equals("defaultUserImage")) //if the profile imagfe url doesnt equal to "defaultUserImage"
                         {
-                            profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
+                            profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString(); //set this profile picture
                         }
 
                             if (dataSnapshot.child("FullName").getValue() != null && dataSnapshot.child("Gender").getValue() != null && dataSnapshot.child("Age").getValue() != null && dataSnapshot.child("profileImageUrl").getValue() != null) {
@@ -301,7 +306,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent4);
                     break;
 
-            case R.id.action_profile:
+            case R.id.action_profile :
                 Intent intent5 = new Intent(MainActivity.this, UserProfile.class);
                 startActivity(intent5);
                 break;

@@ -11,10 +11,6 @@ import faz.ie.partyapp.R;
 import faz.ie.partyapp.chat.Chat;
 
 
-/**
- * Created by manel on 10/31/2017.
- */
-
 public class MatchesViewHolders extends RecyclerView.ViewHolder implements View.OnClickListener{
     public TextView mMatchId, mMatchName;
     public ImageView mMatchImage;
@@ -24,16 +20,17 @@ public class MatchesViewHolders extends RecyclerView.ViewHolder implements View.
 
         mMatchId = (TextView) itemView.findViewById(R.id.matchId);
         mMatchName = (TextView) itemView.findViewById(R.id.matchName);
-
         mMatchImage = (ImageView) itemView.findViewById(R.id.matchImage);
     }
 
     @Override
     public void onClick(View view) {
+
+        String matchID = mMatchId.getText().toString();
         Intent intent = new Intent(view.getContext(), Chat.class);
-        Bundle b = new Bundle();
-        b.putString("matchId", mMatchId.getText().toString());
-        intent.putExtras(b);
+        Bundle bundle = new Bundle();
+        bundle.putString("matchId", matchID);
+        intent.putExtras(bundle);
         view.getContext().startActivity(intent);
     }
 }

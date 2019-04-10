@@ -4,7 +4,7 @@ public class MatchesObject {
     private String userId;
     private String FullName;
     private String profileImageUrl;
-    public MatchesObject (String userId, String fullName, String profileImageUrl){
+    public MatchesObject (String userId,String fullName, String profileImageUrl){
         this.userId = userId;
         this.FullName = fullName;
         this.profileImageUrl = profileImageUrl;
