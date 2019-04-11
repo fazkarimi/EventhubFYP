@@ -37,7 +37,9 @@ import faz.ie.partyapp.registationAndAuthentication.LoginORSignup;
 import faz.ie.partyapp.settings.SettingsActivity;
 import faz.ie.partyapp.settings.UserProfile;
 
-
+/*
+Author Faz
+ */
 public class Chat extends AppCompatActivity {
 
     public RecyclerView mRecyclerView;
