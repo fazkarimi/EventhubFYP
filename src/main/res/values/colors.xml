@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimary">#262938</color>
+    <color name="colorPrimaryDark">#181A24</color>
     <color name="dialogBG">#2B2929</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorTransparentWhite">#cccccc</color>
     <color name="bluedark">#2f333f</color>
     <color name="bluelight">#00ACC0</color>
     <color name="green">#1dab01</color>
     <color name="orange">#eaad43</color>
     <color name="white">#fff</color>
     <color name="red">#d9311b</color>
+    <color name="grey">#383838</color>
     <color name="cyan">#009688</color>
     <color name="morecyan">#2AAA9D</color>
 
+    <!-- Walkthrough colors -->
+
+
+    <color name="gradient_start_color">#4c84ff</color>
+    <color name="gradient_end_color">#18a3fe</color>
+
+
+    <color name="tab_indicator">#c0c0c0</color>
+    <color name="intro_title_color">#000</color>
+    <color name="intro_description">#656565</color>
 </resources>

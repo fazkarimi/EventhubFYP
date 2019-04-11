@@ -41,12 +41,19 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatViewHolders>
         holder.mMessage.setText(chatlist.get(position).getMessage());
         if(chatlist.get(position).getCurrentUser()){
             holder.mMessage.setGravity(Gravity.END);
-            holder.mMessage.setTextColor(Color.parseColor("#FFFFFF")); // textcolor for currentuser
-            holder.mContainer.setBackgroundColor(Color.parseColor("#2DB4C8")); //setting textback ground for current user
-        }else{
+            holder.mMessage.setTextColor(Color.parseColor("#2DB4C8")); // textcolor for currentuser
+           // holder.mContainer.setBackgroundColor(Color.parseColor("#2DB4C8"));
+            //holder.mContainer.setBackgroundColor(Color.parseColor("#2DB4C8"));
+            holder.mContainer.setHorizontalGravity(Gravity.RIGHT);
+
+            //setting textback ground for current user
+        }else
+            {
             holder.mMessage.setGravity(Gravity.START);
-            holder.mMessage.setTextColor(Color.parseColor("#404040"));
-            holder.mContainer.setBackgroundColor(Color.parseColor("#F4F4F4"));
+            holder.mMessage.setTextColor(Color.parseColor("#ffffff"));
+           // holder.mContainer.setBackgroundColor(Color.parseColor("#F4F4F4"));
+            holder.mContainer.setHorizontalGravity(Gravity.LEFT);
+            holder.mContainer.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
         }
 
     }

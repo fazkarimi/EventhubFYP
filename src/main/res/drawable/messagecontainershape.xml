@@ -3,4 +3,7 @@
 
     <!--border radius in dp-->
     <corners android:radius="30dp" />
+    <solid android:color="@color/bluelight">
+
+    </solid>
 </shape>

@@ -1,6 +1,7 @@
 package faz.ie.partyapp.chat;
 
 import android.content.Intent;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +48,7 @@ public class Chat extends AppCompatActivity {
     private String matchId;
     private EditText mSendEditText;
     private Button mSendButton;
+    private NestedScrollView mScrollView;
     private TextView mImageIdTextView;
 
     DatabaseReference mDatabaseUser, mDatabaseChat;
@@ -58,6 +61,7 @@ public class Chat extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
         // mImageIdTextView = (TextView) findViewById(R.id.matchId);
 
+
         currentUserID  = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         matchId = getIntent().getExtras().getString("matchId");
@@ -68,6 +72,8 @@ public class Chat extends AppCompatActivity {
 
         mSendButton =  findViewById(R.id.sendButton);
         mSendEditText = findViewById(R.id.message);
+
+        mScrollView =  (NestedScrollView) findViewById(R.id.scrollView);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mRecyclerView.setNestedScrollingEnabled(false);
@@ -83,6 +89,7 @@ public class Chat extends AppCompatActivity {
             public void onClick(View view)
             {
                 sendMessage();
+                //mScrollView.fullScroll(NestedScrollView.FOCUS_DOWN);
             }
         });
 
@@ -94,12 +101,14 @@ public class Chat extends AppCompatActivity {
 
         if(!sendMessageText.isEmpty()){
             DatabaseReference newMessageDb = mDatabaseChat.push();
-
             Map newMessage = new HashMap();
             newMessage.put("createdByUser", currentUserID);
             newMessage.put("text", sendMessageText);
-
             newMessageDb.setValue(newMessage);
+        }
+        else
+        {
+            Toast.makeText(Chat.this, "Enter a message before sending", Toast.LENGTH_SHORT).show();
         }
         mSendEditText.setText(null); //emptying textfield after a message is sent
     }
@@ -140,6 +149,9 @@ public class Chat extends AppCompatActivity {
                     if(dataSnapshot.child("createdByUser").getValue()!=null){
                         createdByUser = dataSnapshot.child("createdByUser").getValue().toString();
                     }
+
+
+                    mScrollView.fullScroll(NestedScrollView.FOCUS_DOWN);
 
                     if(message!=null && createdByUser!=null)
                     {
