@@ -99,6 +99,11 @@ public class Chat extends AppCompatActivity {
 
     }
 
+    public void sentAutoMessage()
+    {
+
+    }
+
     private void sendMessage()
     {
         String sendMessageText = mSendEditText.getText().toString();
@@ -194,8 +199,7 @@ public class Chat extends AppCompatActivity {
                 onBackPressed();
                 break;
             case R.id.action_flag:
-                Intent intent3 = new Intent(Chat.this, Chat.class);
-                startActivity(intent3);
+                Toast.makeText(Chat.this, "User Reported", Toast.LENGTH_SHORT).show();
             default:
         }
         return super.onOptionsItemSelected(item);

@@ -39,7 +39,6 @@ import java.util.List;
 
 import faz.ie.partyapp.R;
 import faz.ie.partyapp.models.Event;
-import faz.ie.partyapp.models.eventsArrayAdapter;
 import faz.ie.partyapp.registationAndAuthentication.LoginORSignup;
 import faz.ie.partyapp.matches.Matches;
 import faz.ie.partyapp.models.User;
@@ -55,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     Event event_data[];
 
     private arrayAdapter mArrayAdapter;
-    private eventsArrayAdapter mEventArrayAdapter;
+    //private eventsArrayAdapter mEventArrayAdapter;
     private int i;
 
     private String currentUid;
@@ -96,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
         mArrayAdapter = new arrayAdapter(this, R.layout.item, rowItemsForUser);
 
-        mEventArrayAdapter = new eventsArrayAdapter(this, R.layout.event_item, rowItemsForEvents);
+     //   mEventArrayAdapter = new eventsArrayAdapter(this, R.layout.event_item, rowItemsForEvents);
 
 
         SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);

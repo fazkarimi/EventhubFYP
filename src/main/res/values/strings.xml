@@ -35,7 +35,7 @@
     <string name="actionbarProfile"></string>
     <string name="actionbarMain">1.0</string>
 
-    <string name="numberOfAttempts">Number of attempts remaining: 5</string>
+    <string name="numberOfAttempts">Number of attempts: 5</string>
 
 
     <!-- Example General settings -->

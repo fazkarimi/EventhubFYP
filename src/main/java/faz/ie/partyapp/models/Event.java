@@ -62,12 +62,12 @@ public class Event {
         this.userId = userId;
     }
 
-    public String getProfileImageUrl() {
+    /*public String getProfileImageUrl() {
         return ProfileImageUrl;
     }
 
     public void setProfileImageUrl(String profileImageUrl) {
         this.ProfileImageUrl = profileImageUrl;
-    }
+    }*/
 
 }

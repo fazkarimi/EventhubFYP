@@ -5,7 +5,10 @@ REFERENCE..
 
 package faz.ie.partyapp.registationAndAuthentication;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +26,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.ProviderQueryResult;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -65,8 +69,8 @@ public class SignUpInformationEntry extends AppCompatActivity {
 
                 final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if (user != null) {
-                    Intent intent = new Intent(SignUpInformationEntry.this, MainActivity.class);
-                    startActivity(intent);
+                    /*Intent intent = new Intent(SignUpInformationEntry.this, MainActivity.class);
+                    startActivity(intent);*/
                 }
             }
         };
@@ -98,6 +102,7 @@ public class SignUpInformationEntry extends AppCompatActivity {
         });
 
         mSignUpButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
 
@@ -108,7 +113,7 @@ public class SignUpInformationEntry extends AppCompatActivity {
                 final String PhoneNumber = mPhoneNumber.getText().toString();
                 final String Gender = mGender.getText().toString();
                 final String Age = mAge.getText().toString();
-
+                checkIfEmailAlreadyExists ();
                 if(Email.isEmpty()||Password.isEmpty()||FullName.isEmpty()||PhoneNumber.isEmpty()||Gender.isEmpty()||Age.isEmpty())
                 {
                     Toast.makeText(SignUpInformationEntry.this, "Not all Fields are filled!", Toast.LENGTH_SHORT).show();
@@ -146,7 +151,8 @@ public class SignUpInformationEntry extends AppCompatActivity {
                                 userInfo.put("profileImageUrl", "defaultUserImage");
                                 currentUserDB.updateChildren(userInfo);
 
-                                checkIfEmailIsVerified();
+                                //checkIfEmailAlreadyExists ();
+                                checkIfEmailIsVerifiedForAttendingUsers();
 
                                /* if(!Gender.equals("male") || !Gender.equals("Male") || !Gender.equals("female") ||!Gender.equals("Female"))
                                 {
@@ -198,10 +204,10 @@ public class SignUpInformationEntry extends AppCompatActivity {
                                 userInfo.put("userType", radioButton.getText().toString());
                                 userInfo.put("profileImageUrl", "defaultUserImage");
 
-
                                 currentUserDB.updateChildren(userInfo);
+                                //checkIfEmailAlreadyExists ();
 
-                                checkIfEmailIsVerified();
+                                //checkIfEmailIsVerifiedForHostingUsers();
 
                               /*  if(!Gender.equals("male") || !Gender.equals("Male") || !Gender.equals("female") ||!Gender.equals("Female"))
                                 {
@@ -217,19 +223,16 @@ public class SignUpInformationEntry extends AppCompatActivity {
                                     currentUserDB5.updateChildren(userInfo);
                                     currentUserDB6.updateChildren(userInfo);*/
 
-                               // Toast.makeText(SignUpInformationEntry.this, "Enter your events information", Toast.LENGTH_SHORT).show();
-                                /*Intent intent = new Intent(SignUpInformationEntry.this, PartyInformation.class);
-                                startActivity(intent);*/
+                               Toast.makeText(SignUpInformationEntry.this, "Enter your events information", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(SignUpInformationEntry.this, PartyInformation.class);
+                               intent.putExtra("Email", Email);
+                                startActivity(intent);
 
 
                             }
 
                         }
-                        else
-                        {
-                            myProgressDialog.dismiss();
-                            Toast.makeText(SignUpInformationEntry.this, "Sign Up was not successful!", Toast.LENGTH_SHORT).show();
-                        }
+
                     }
                 });
 
@@ -242,8 +245,31 @@ public class SignUpInformationEntry extends AppCompatActivity {
 
     }
 
+    public void checkIfEmailAlreadyExists ()
+    {
+        mAuth.fetchProvidersForEmail(mEmail.getText().toString()).addOnCompleteListener(new OnCompleteListener<ProviderQueryResult>()
+        {
+            @Override
+            public void onComplete(@NonNull Task<ProviderQueryResult> task)
+            {
 
-    private void checkIfEmailIsVerified()
+                final String Email = mEmail.getText().toString();
+                boolean check = !task.getResult().getProviders().isEmpty(); // id the email doesnt exist
+
+                if(!check)
+                {
+
+                }
+                else
+                {
+                    myProgressDialog.dismiss();
+                    Toast.makeText(SignUpInformationEntry.this, "The Email Address "+ Email+" already exists", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    private void checkIfEmailIsVerifiedForAttendingUsers()
     {
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
@@ -255,16 +281,25 @@ public class SignUpInformationEntry extends AppCompatActivity {
                 {
                     if(task.isSuccessful())
                     {
-                        Toast.makeText(SignUpInformationEntry.this, "Sign Up was successful!\nA verification has been sent, please verify your email", Toast.LENGTH_SHORT).show();
+                        final String Email = mEmail.getText().toString();
+
+                        Intent intent = new Intent(SignUpInformationEntry.this, LoginInformationEntry.class);
+                        startActivity(intent);
+                        Toast.makeText(SignUpInformationEntry.this, "Sign Up was successful!\nA verification link has been sent to "+Email+"\nPlease verify your Email Address and then Log in", Toast.LENGTH_LONG).show();
+
+                        mAuth.signOut();
+                        finish();
+                    }
+                    else
+                    {
+                        Toast.makeText(SignUpInformationEntry.this, "Email Verification was not sent!", Toast.LENGTH_SHORT).show();
+
                     }
                 }
             });
         }
 
     }
-
-
-
 
 
     @Override

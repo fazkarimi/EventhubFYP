@@ -6,8 +6,13 @@ REFERENCE..
  */
 package faz.ie.partyapp.registationAndAuthentication;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,6 +27,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.ProviderQueryResult;
 
 import faz.ie.partyapp.main.MainActivity;
 import faz.ie.partyapp.R;
@@ -47,15 +53,31 @@ public class LoginInformationEntry extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_information_entry);
+
+        /*if(!isConnected(LoginInformationEntry.this)) buildDialog(LoginInformationEntry.this).show();
+        else {
+            Toast.makeText(LoginInformationEntry.this,"Welcome", Toast.LENGTH_SHORT).show();
+            setContentView(R.layout.activity_login_information_entry);
+        }
+
+        if(!isConnected(LoginInformationEntry.this)) buildDialog(LoginInformationEntry.this).show();
+        else {
+            Toast.makeText(LoginInformationEntry.this,"Welcome", Toast.LENGTH_SHORT).show();
+            setContentView(R.layout.activity_login_information_entry);
+        }*/
+
         getSupportActionBar().hide();
 
         Info = (TextView)findViewById(R.id.tvInfo);
-        Info.setText("No of attempts : 5");
-        noAcc = findViewById(R.id.noAccText);
+
+        Info.setText(getResources().getString(R.string.numberOfAttempts));
+        noAcc = (TextView) findViewById(R.id.noAccText);
         myProgressDialog2 = new ProgressDialog(this);
 
         mAuth = FirebaseAuth.getInstance();
-        firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
+
+
+       firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
@@ -63,8 +85,8 @@ public class LoginInformationEntry extends AppCompatActivity {
                 if (user != null)
                 {
 
-                    Intent intent = new Intent(LoginInformationEntry.this, MainActivity.class);
-                    startActivity(intent);
+                    /*Intent intent = new Intent(LoginInformationEntry.this, MainActivity.class);
+                    startActivity(intent);*/
 
                 }
 
@@ -89,6 +111,8 @@ public class LoginInformationEntry extends AppCompatActivity {
         mGoButton.setOnClickListener(new View.OnClickListener() {
               @Override
             public void onClick(View view) {
+
+                  //isConnected(LoginInformationEntry.this);
                 final String email = mEmail.getText().toString();
                 final String password = mPassword.getText().toString();
 
@@ -102,23 +126,20 @@ public class LoginInformationEntry extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         //Log.v("partyApp",task.getException().getMessage());
-
+                        ;
                         if(task.isSuccessful())
                         {
-                           // Toast.makeText(LoginInformationEntry.this, "Logged In", Toast.LENGTH_SHORT).show();
-                            checkEmailVerification();
 
+                            checkEmailVerification();
                         }
 
                         else {
                             myProgressDialog2.dismiss();
                             counter--;
-                            Toast.makeText(LoginInformationEntry.this, "Error Logging In\nYou have " + String.valueOf(counter) + " attempts remaining", Toast.LENGTH_SHORT).show();
+                           Toast.makeText(LoginInformationEntry.this, "Error Logging In\nYou have " + String.valueOf(counter) + " attempts remaining", Toast.LENGTH_SHORT).show();
                             Info.setText("No of attempts remaining: " + String.valueOf(counter));
                             if (counter == 0) {
                                 mGoButton.setEnabled(false);
-                                //Toast.makeText(LoginInformationEntry.this, "You have run out of attempts", Toast.LENGTH_SHORT).show();
-
 
                             }
                         }
@@ -144,17 +165,48 @@ public class LoginInformationEntry extends AppCompatActivity {
         }
         else
         {
+            myProgressDialog2.dismiss();
+            Toast.makeText(LoginInformationEntry.this, "The Email Address you have entered is not verified!\nPlease verify Email Address before logging in", Toast.LENGTH_LONG).show();
+            mAuth.signOut();
 
-            Toast.makeText(LoginInformationEntry.this, "Please check your Email inbox to verify the Email Address you have entered", Toast.LENGTH_LONG).show();
         }
     }
 
-    public void goToSignUpActivity(View view)
-    {
 
+    /*public boolean isConnected(Context context) {
+
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netinfo = cm.getActiveNetworkInfo();
+
+        if (netinfo != null && netinfo.isConnectedOrConnecting()) {
+            android.net.NetworkInfo wifi = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+            android.net.NetworkInfo mobile = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+            if((mobile != null && mobile.isConnectedOrConnecting()) || (wifi != null && wifi.isConnectedOrConnecting())) return true;
+        else return false;
+        } else
+        return false;
     }
 
-   /* @Override
+    public AlertDialog.Builder buildDialog(Context c) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(c);
+        builder.setTitle("No Internet Connection");
+        builder.setMessage("You need to have Mobile Data or wifi to access this. Press ok to Exit");
+
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                finish();
+            }
+        });
+
+        return builder;
+    }*/
+
+    @Override
     protected void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(firebaseAuthStateListener);
@@ -164,6 +216,8 @@ public class LoginInformationEntry extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         mAuth.removeAuthStateListener(firebaseAuthStateListener);
-    }*/
+    }
+
+
 }
 

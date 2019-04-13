@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -30,7 +32,7 @@ public class PartyInformation extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
-
+    String hostingUserEmail;
     String currentUser;
 
     private DatabaseReference mDatabaseReference;
@@ -48,8 +50,8 @@ public class PartyInformation extends AppCompatActivity {
                 final FirebaseUser user =  FirebaseAuth.getInstance().getCurrentUser();
                 if (user != null)
                 {
-                    Intent intent = new Intent(PartyInformation.this, MainActivity.class);
-                    startActivity(intent);
+                    /*Intent intent = new Intent(PartyInformation.this, MainActivity.class);
+                    startActivity(intent);*/
                 }
             }
         };
@@ -61,6 +63,7 @@ public class PartyInformation extends AppCompatActivity {
         mPartyDescription = (EditText) findViewById(R.id.partyDescriptionTxtField);
         mPartyName = (EditText) findViewById(R.id.partyNameTxtField);
 
+        hostingUserEmail = getIntent().getExtras().getString("Email");
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
 
         mNextButton.setOnClickListener(new View.OnClickListener() {
@@ -82,23 +85,47 @@ public class PartyInformation extends AppCompatActivity {
 
                 Event partyInfo = new Event(PartyName,HostName,County,PartyDescription);
 
-                String userID = mAuth.getCurrentUser().getUid();
+                //String userID = mAuth.getCurrentUser().getUid();
 
                 DatabaseReference currentUserDB1 = FirebaseDatabase.getInstance().getReference().child("Users")
-                   .child(userID).child("Event Information");
+                   .child(currentUser).child("Event Information");
 
                 currentUserDB1.setValue(partyInfo);
 
-                Intent intent = new Intent(PartyInformation.this, MainActivity.class);
-                startActivity(intent);
-
-
+                checkIfEmailIsVerifiedForHostingUsers();
 
             }
         });
 
+    }
 
+    private void checkIfEmailIsVerifiedForHostingUsers()
+    {
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
+        if(firebaseUser != null)
+        {
+            firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task)
+                {
+                    if(task.isSuccessful())
+                    {
+                        final String Email = hostingUserEmail;
+                        Intent intent = new Intent(PartyInformation.this, LoginInformationEntry.class);
+                        startActivity(intent);
+                        Toast.makeText(PartyInformation.this, "Sign Up was successful!\nA verification link has been sent to "+Email+"\nPlease verify your Email Address and then log in", Toast.LENGTH_LONG).show();
+                        mAuth.signOut();
+                        finish();
+                    }
+                    else
+                    {
+                        Toast.makeText(PartyInformation.this, "Email Verification was not sent!", Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+            });
+        }
 
     }
 }
