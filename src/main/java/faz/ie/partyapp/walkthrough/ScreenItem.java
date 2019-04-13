@@ -1,4 +1,4 @@
-package faz.ie.partyapp.others;
+package faz.ie.partyapp.walkthrough;
 
 
 

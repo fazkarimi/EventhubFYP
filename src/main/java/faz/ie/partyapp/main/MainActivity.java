@@ -38,6 +38,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import faz.ie.partyapp.R;
+import faz.ie.partyapp.models.Event;
+import faz.ie.partyapp.models.eventsArrayAdapter;
 import faz.ie.partyapp.registationAndAuthentication.LoginORSignup;
 import faz.ie.partyapp.matches.Matches;
 import faz.ie.partyapp.models.User;
@@ -50,8 +52,10 @@ public class MainActivity extends AppCompatActivity {
     Dialog myDialog;
     User user_data[];
 
+    Event event_data[];
+
     private arrayAdapter mArrayAdapter;
-    private arrayAdapter mEventArrayAdapter;
+    private eventsArrayAdapter mEventArrayAdapter;
     private int i;
 
     private String currentUid;
@@ -60,7 +64,9 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
 
     ListView listView;
-    List<User> rowItems;
+    List<User> rowItemsForUser;
+
+    List<Event> rowItemsForEvents;
 
     private DatabaseReference userTypeDB;
    // private DatabaseReference matchesDB;
@@ -84,19 +90,24 @@ public class MainActivity extends AppCompatActivity {
 
         currentUid = mAuth.getCurrentUser().getUid();
         checkUseType();
-        rowItems = new ArrayList<User>();
+        rowItemsForUser = new ArrayList<User>();
 
-        mArrayAdapter = new arrayAdapter(this, R.layout.item, rowItems);
-        //mEventArrayAdapter = new arrayAdapter(this, R.layout.eventitem, rowItems);
+        rowItemsForEvents = new ArrayList<Event>();
+
+        mArrayAdapter = new arrayAdapter(this, R.layout.item, rowItemsForUser);
+
+        mEventArrayAdapter = new eventsArrayAdapter(this, R.layout.event_item, rowItemsForEvents);
 
 
         SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
-
+        SwipeFlingAdapterView flingContainerForEvents = (SwipeFlingAdapterView) findViewById(R.id.frame);
         flingContainer.setAdapter(mArrayAdapter);
+
+
         flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
             @Override
             public void removeFirstObjectInAdapter() {
-                rowItems.remove(0);
+                rowItemsForUser.remove(0);
                 mArrayAdapter.notifyDataSetChanged();
             }
 
@@ -259,7 +270,7 @@ public class MainActivity extends AppCompatActivity {
 
                             if (dataSnapshot.child("FullName").getValue() != null && dataSnapshot.child("Gender").getValue() != null && dataSnapshot.child("Age").getValue() != null && dataSnapshot.child("profileImageUrl").getValue() != null) {
                                 User item = new User(dataSnapshot.getKey(), dataSnapshot.child("FullName").getValue().toString(), dataSnapshot.child("Gender").getValue().toString(), dataSnapshot.child("Age").getValue().toString(), profileImageUrl);
-                                rowItems.add(item);
+                                rowItemsForUser.add(item);
                                 mArrayAdapter.notifyDataSetChanged();
                             }
 

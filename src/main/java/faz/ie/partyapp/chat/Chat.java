@@ -47,7 +47,7 @@ public class Chat extends AppCompatActivity {
     public RecyclerView.LayoutManager mChatLayoutManager;
     public TextView nameInActionBarTextView;
     private String currentUserID, chatId;
-    private String matchId;
+    public String matchId;
     private EditText mSendEditText;
     private Button mSendButton;
     private NestedScrollView mScrollView;
@@ -61,8 +61,11 @@ public class Chat extends AppCompatActivity {
         setTitle("Chat Messenger");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-        // mImageIdTextView = (TextView) findViewById(R.id.matchId);
 
+        mScrollView =  (NestedScrollView) findViewById(R.id.scrollView);
+        //mImageIdTextView = (TextView) findViewById(R.id.matchId);
+
+        mScrollView.fullScroll(NestedScrollView.FOCUS_DOWN);
 
         currentUserID  = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -75,7 +78,6 @@ public class Chat extends AppCompatActivity {
         mSendButton =  findViewById(R.id.sendButton);
         mSendEditText = findViewById(R.id.message);
 
-        mScrollView =  (NestedScrollView) findViewById(R.id.scrollView);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mRecyclerView.setNestedScrollingEnabled(false);

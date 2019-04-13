@@ -1,33 +1,33 @@
 package faz.ie.partyapp.models;
 
+public class Event {
 
-public class Party {
-
-    public String partyName;
+    public String eventName;
     public String hostName;
     public String county;
     public String partyDescription;
     public String userId;
-    //public String ProfileImageUrl;
+    public String ProfileImageUrl;
 
-    public Party(){
+
+    public Event()
+    {
 
     }
-
-    public Party(String partyName, String hostName, String county, String partyDescription) {
-        this.partyName = partyName;
+    public Event (String partyName, String hostName, String county, String partyDescription) {
+        this.eventName = partyName;
         this.hostName = hostName;
         this.county = county;
         this.partyDescription = partyDescription;
-       // this.ProfileImageUrl = profileImageUrl;
+        //this.ProfileImageUrl = profileImageUrl;
     }
 
-    public String getPartyName() {
-        return partyName;
+    public String getEventName() {
+        return eventName;
     }
 
-    public void setPartyName(String partyName) {
-        this.partyName = partyName;
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
     }
 
     public String getHostName() {
@@ -62,5 +62,12 @@ public class Party {
         this.userId = userId;
     }
 
-}
+    public String getProfileImageUrl() {
+        return ProfileImageUrl;
+    }
 
+    public void setProfileImageUrl(String profileImageUrl) {
+        this.ProfileImageUrl = profileImageUrl;
+    }
+
+}

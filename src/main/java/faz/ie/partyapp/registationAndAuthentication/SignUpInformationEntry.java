@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -39,11 +40,13 @@ public class SignUpInformationEntry extends AppCompatActivity {
     private RadioGroup mRadioButtonGroup;
 
     private RadioButton lookForAPartyRadioButton;
-
+    private TextView alreadyHaveAnAcc;
 
     private ProgressDialog myProgressDialog;
 
     private FirebaseAuth mAuth;
+
+
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
 
     @Override
@@ -52,7 +55,6 @@ public class SignUpInformationEntry extends AppCompatActivity {
         setContentView(R.layout.activity_signup_information_entry);
 
         myProgressDialog = new ProgressDialog(this);
-
         getSupportActionBar().hide();  // to hide the action bar in the specific activity
         /*LookRadioButton.setChecked(true);*/
 
@@ -76,12 +78,24 @@ public class SignUpInformationEntry extends AppCompatActivity {
         mFullName = (EditText) findViewById(R.id.nameTxtField);
         mGender = (EditText) findViewById(R.id.genderTxtField);
         mAge = (EditText) findViewById(R.id.ageTxtField);
+        alreadyHaveAnAcc = findViewById(R.id.textView3);
         lookForAPartyRadioButton = (RadioButton) findViewById(R.id.look);
 
         mRadioButtonGroup = (RadioGroup) findViewById(R.id.radioButtonGroup);
 
         mRadioButtonGroup.check(lookForAPartyRadioButton.getId());
 
+
+        alreadyHaveAnAcc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent = new Intent(SignUpInformationEntry.this, LoginInformationEntry.class);
+                startActivity(intent);
+
+                Toast.makeText(SignUpInformationEntry.this, "Enter the Email Address and Password you Signed up with", Toast.LENGTH_LONG).show();
+            }
+        });
 
         mSignUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,6 +129,7 @@ public class SignUpInformationEntry extends AppCompatActivity {
                         {
 
                             if(selectID==R.id.look) {
+
                                 String userID = mAuth.getCurrentUser().getUid();
 
                                 DatabaseReference currentUserDB = FirebaseDatabase.getInstance().getReference().child("Users")
@@ -131,6 +146,8 @@ public class SignUpInformationEntry extends AppCompatActivity {
                                 userInfo.put("profileImageUrl", "defaultUserImage");
                                 currentUserDB.updateChildren(userInfo);
 
+                                checkIfEmailIsVerified();
+
                                /* if(!Gender.equals("male") || !Gender.equals("Male") || !Gender.equals("female") ||!Gender.equals("Female"))
                                 {
 
@@ -142,9 +159,11 @@ public class SignUpInformationEntry extends AppCompatActivity {
                                     Toast.makeText(SignUpInformationEntry.this, "You must be 16 or over", Toast.LENGTH_SHORT).show();
                                 }*/
 
-                                Toast.makeText(SignUpInformationEntry.this, "Signed Up Successfully", Toast.LENGTH_SHORT).show();
+
+
+                                /*Toast.makeText(SignUpInformationEntry.this, "Signed Up Successfully", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(SignUpInformationEntry.this, MainActivity.class);
-                                startActivity(intent);
+                                startActivity(intent);*/
                             }
 
                             else if(selectID==R.id.host)
@@ -182,6 +201,8 @@ public class SignUpInformationEntry extends AppCompatActivity {
 
                                 currentUserDB.updateChildren(userInfo);
 
+                                checkIfEmailIsVerified();
+
                               /*  if(!Gender.equals("male") || !Gender.equals("Male") || !Gender.equals("female") ||!Gender.equals("Female"))
                                 {
                                     Toast.makeText(SignUpInformationEntry.this, "Please enter a valid gender", Toast.LENGTH_SHORT).show();
@@ -196,9 +217,11 @@ public class SignUpInformationEntry extends AppCompatActivity {
                                     currentUserDB5.updateChildren(userInfo);
                                     currentUserDB6.updateChildren(userInfo);*/
 
-                                Toast.makeText(SignUpInformationEntry.this, "Enter your events information", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(SignUpInformationEntry.this, PartyInformation.class);
-                                startActivity(intent);
+                               // Toast.makeText(SignUpInformationEntry.this, "Enter your events information", Toast.LENGTH_SHORT).show();
+                                /*Intent intent = new Intent(SignUpInformationEntry.this, PartyInformation.class);
+                                startActivity(intent);*/
+
+
                             }
 
                         }
@@ -218,6 +241,29 @@ public class SignUpInformationEntry extends AppCompatActivity {
 
 
     }
+
+
+    private void checkIfEmailIsVerified()
+    {
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+
+        if(firebaseUser != null)
+        {
+            firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task)
+                {
+                    if(task.isSuccessful())
+                    {
+                        Toast.makeText(SignUpInformationEntry.this, "Sign Up was successful!\nA verification has been sent, please verify your email", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+
+    }
+
+
 
 
 

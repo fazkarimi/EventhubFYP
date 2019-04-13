@@ -34,7 +34,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/D:/semester%202/FYP/AndroidStudio/studio/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_flag_black_24dp.xml" />
+                                                <entry key="url" value="jar:file:/D:/semester%202/FYP/AndroidStudio/studio/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_send_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -44,7 +44,7 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="outputName" value="flag_icon" />
+                                      <entry key="outputName" value="send_button_icon" />
                                       <entry key="theme" value="CUSTOM" />
                                       <entry key="themeColor" value="ffffff" />
                                     </map>

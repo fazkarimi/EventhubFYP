@@ -9,15 +9,17 @@
     android:orientation="vertical">
 
     <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
         android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_above="@+id/sendLayout"
-        android:layout_height="match_parent">
+        android:layout_marginBottom="0dp">
 
         <view
             android:id="@+id/recyclerView"
             class="android.support.v7.widget.RecyclerView"
             android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"></view>
 
@@ -29,25 +31,29 @@
         android:orientation="horizontal"
         android:paddingBottom="10dp"
         android:paddingLeft="5dp"
-        android:paddingVertical="10dp"
+        android:paddingVertical="5dp"
         android:paddingEnd="10dp"
         android:paddingRight="5dp"
         android:layout_alignParentBottom="true">
 
         <EditText
-            android:layout_width="320dp"
-            android:layout_weight="0.8"
             android:id="@+id/message"
-            android:hint="Send a message..."
-            android:layout_height="wrap_content" />
+            android:hint="Enter message"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:maxLines="6"/>
+
         <Button
             android:id="@+id/sendButton"
-            android:layout_width="wrap_content"
+            android:background="@drawable/send_button_icon"
+            android:clickable="true"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.2"
-            android:text="Send"
-            android:textColor="@color/white"
-            android:background="@drawable/sendbuttonstyle"/>
+            android:layout_gravity="bottom" />
 
     </LinearLayout>
 

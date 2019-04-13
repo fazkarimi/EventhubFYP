@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -32,6 +33,11 @@ public class LoginInformationEntry extends AppCompatActivity {
     private Button mGoButton;
     private EditText mEmail, mPassword;
 
+    private int counter = 5;
+
+
+    private TextView Info, noAcc;
+
     private ProgressDialog myProgressDialog2;
 
     private FirebaseAuth mAuth;
@@ -43,6 +49,9 @@ public class LoginInformationEntry extends AppCompatActivity {
         setContentView(R.layout.activity_login_information_entry);
         getSupportActionBar().hide();
 
+        Info = (TextView)findViewById(R.id.tvInfo);
+        Info.setText("No of attempts : 5");
+        noAcc = findViewById(R.id.noAccText);
         myProgressDialog2 = new ProgressDialog(this);
 
         mAuth = FirebaseAuth.getInstance();
@@ -62,7 +71,15 @@ public class LoginInformationEntry extends AppCompatActivity {
             }
         };
 
-
+        noAcc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent = new Intent(LoginInformationEntry.this, SignUpInformationEntry.class);
+                startActivity(intent);
+                Toast.makeText(LoginInformationEntry.this, "Please choose whether you want to Host or Attend an event and enter your details", Toast.LENGTH_LONG).show();
+            }
+        });
         mGoButton = (Button)findViewById(R.id.goButton);
         //mFullName = (EditText) findViewById(R.id.fullNameField);
         mEmail = (EditText) (EditText) findViewById(R.id.emailTxt);
@@ -77,7 +94,7 @@ public class LoginInformationEntry extends AppCompatActivity {
 
                   if(email.isEmpty()||password.isEmpty())
                   {
-                      Toast.makeText(LoginInformationEntry.this, "Not all Fields are filled!", Toast.LENGTH_SHORT).show();
+                      Toast.makeText(LoginInformationEntry.this, "Please enter your Email Address and Password", Toast.LENGTH_SHORT).show();
                       return;
                   }
 
@@ -88,19 +105,23 @@ public class LoginInformationEntry extends AppCompatActivity {
 
                         if(task.isSuccessful())
                         {
-                            Toast.makeText(LoginInformationEntry.this, "Logged In", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(LoginInformationEntry.this, MainActivity.class);
-                            startActivity(intent);
+                           // Toast.makeText(LoginInformationEntry.this, "Logged In", Toast.LENGTH_SHORT).show();
+                            checkEmailVerification();
 
                         }
 
-                        else
-                        {
-                            Toast.makeText(LoginInformationEntry.this, "Error Logging In", Toast.LENGTH_SHORT).show();
-                            Intent intent =new Intent(LoginInformationEntry.this, LoginORSignup.class);
-                            startActivity(intent);
-                        }
+                        else {
+                            myProgressDialog2.dismiss();
+                            counter--;
+                            Toast.makeText(LoginInformationEntry.this, "Error Logging In\nYou have " + String.valueOf(counter) + " attempts remaining", Toast.LENGTH_SHORT).show();
+                            Info.setText("No of attempts remaining: " + String.valueOf(counter));
+                            if (counter == 0) {
+                                mGoButton.setEnabled(false);
+                                //Toast.makeText(LoginInformationEntry.this, "You have run out of attempts", Toast.LENGTH_SHORT).show();
 
+
+                            }
+                        }
                     }
                 });
                 myProgressDialog2.setMessage("Logging In...");
@@ -108,6 +129,28 @@ public class LoginInformationEntry extends AppCompatActivity {
 
             }
         });
+
+    }
+
+    private void checkEmailVerification()
+    {
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+        Boolean emailFlag = firebaseUser.isEmailVerified();
+
+        if(emailFlag)
+        {
+            Intent intent = new Intent(LoginInformationEntry.this, MainActivity.class);
+            startActivity(intent);
+        }
+        else
+        {
+
+            Toast.makeText(LoginInformationEntry.this, "Please check your Email inbox to verify the Email Address you have entered", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void goToSignUpActivity(View view)
+    {
 
     }
 

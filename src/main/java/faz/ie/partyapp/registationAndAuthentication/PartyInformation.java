@@ -21,7 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import faz.ie.partyapp.main.MainActivity;
 import faz.ie.partyapp.R;
-import faz.ie.partyapp.models.Party;
+import faz.ie.partyapp.models.Event;
 
 public class PartyInformation extends AppCompatActivity {
 
@@ -80,7 +80,7 @@ public class PartyInformation extends AppCompatActivity {
                     return;
                 }
 
-                Party partyInfo = new Party(PartyName,HostName,County,PartyDescription);
+                Event partyInfo = new Event(PartyName,HostName,County,PartyDescription);
 
                 String userID = mAuth.getCurrentUser().getUid();
 

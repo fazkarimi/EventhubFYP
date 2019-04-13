@@ -1,18 +1,15 @@
-package faz.ie.partyapp.others;
+package faz.ie.partyapp.walkthrough;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import faz.ie.partyapp.R;
-import faz.ie.partyapp.main.MainActivity;
 import faz.ie.partyapp.registationAndAuthentication.LoginORSignup;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;

@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import faz.ie.partyapp.R;
-import faz.ie.partyapp.registationAndAuthentication.LoginORSignup;
+import faz.ie.partyapp.walkthrough.IntroActivity;
 
 public class SplashScreen extends AppCompatActivity {
 

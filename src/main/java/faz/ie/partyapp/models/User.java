@@ -7,16 +7,15 @@ public class User {
     private String Age;
     private String PhoneNumber;
     private String EmailAddress;
-    private  String userId;
+    private String userId;
     private String ProfileImageUrl;
 
 
-    public User()
-    {
+    public User() {
 
     }
 
-    public User(String userId,String fullName, String gender, String age, String profileImageUrl) {
+    public User(String userId, String fullName, String gender, String age, String profileImageUrl) {
         FullName = fullName;
         Gender = gender;
         Age = age;
@@ -79,4 +78,6 @@ public class User {
     public void setProfileImageUrl(String profileImageUrl) {
         this.ProfileImageUrl = profileImageUrl;
     }
+
+
 }
