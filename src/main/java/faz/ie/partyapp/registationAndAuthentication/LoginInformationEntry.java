@@ -54,17 +54,6 @@ public class LoginInformationEntry extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_information_entry);
 
-        /*if(!isConnected(LoginInformationEntry.this)) buildDialog(LoginInformationEntry.this).show();
-        else {
-            Toast.makeText(LoginInformationEntry.this,"Welcome", Toast.LENGTH_SHORT).show();
-            setContentView(R.layout.activity_login_information_entry);
-        }
-
-        if(!isConnected(LoginInformationEntry.this)) buildDialog(LoginInformationEntry.this).show();
-        else {
-            Toast.makeText(LoginInformationEntry.this,"Welcome", Toast.LENGTH_SHORT).show();
-            setContentView(R.layout.activity_login_information_entry);
-        }*/
 
         getSupportActionBar().hide();
 
@@ -76,7 +65,6 @@ public class LoginInformationEntry extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-
        firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -84,9 +72,6 @@ public class LoginInformationEntry extends AppCompatActivity {
                 final FirebaseUser user =  FirebaseAuth.getInstance().getCurrentUser();
                 if (user != null)
                 {
-
-                    /*Intent intent = new Intent(LoginInformationEntry.this, MainActivity.class);
-                    startActivity(intent);*/
 
                 }
 
@@ -112,7 +97,8 @@ public class LoginInformationEntry extends AppCompatActivity {
               @Override
             public void onClick(View view) {
 
-                  //isConnected(LoginInformationEntry.this);
+                  isConnected(LoginInformationEntry.this);
+
                 final String email = mEmail.getText().toString();
                 final String password = mPassword.getText().toString();
 
@@ -133,10 +119,15 @@ public class LoginInformationEntry extends AppCompatActivity {
                             checkEmailVerification();
                         }
 
+                      else if (!isConnected(LoginInformationEntry.this))
+                        {
+                            buildDialog(LoginInformationEntry.this).show();
+                        }
+
                         else {
                             myProgressDialog2.dismiss();
                             counter--;
-                           Toast.makeText(LoginInformationEntry.this, "Error Logging In\nYou have " + String.valueOf(counter) + " attempts remaining", Toast.LENGTH_SHORT).show();
+                           Toast.makeText(LoginInformationEntry.this, "Incorrect Email Address or Password\nYou have " + String.valueOf(counter) + " attempts remaining", Toast.LENGTH_SHORT).show();
                             Info.setText("No of attempts remaining: " + String.valueOf(counter));
                             if (counter == 0) {
                                 mGoButton.setEnabled(false);
@@ -156,7 +147,7 @@ public class LoginInformationEntry extends AppCompatActivity {
     private void checkEmailVerification()
     {
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
-        Boolean emailFlag = firebaseUser.isEmailVerified();
+        boolean emailFlag = firebaseUser.isEmailVerified();
 
         if(emailFlag)
         {
@@ -166,14 +157,14 @@ public class LoginInformationEntry extends AppCompatActivity {
         else
         {
             myProgressDialog2.dismiss();
-            Toast.makeText(LoginInformationEntry.this, "The Email Address you have entered is not verified!\nPlease verify Email Address before logging in", Toast.LENGTH_LONG).show();
+            Toast.makeText(LoginInformationEntry.this, "Verify your Email Address", Toast.LENGTH_LONG).show();
             mAuth.signOut();
 
         }
     }
 
 
-    /*public boolean isConnected(Context context) {
+    public boolean isConnected(Context context) {
 
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netinfo = cm.getActiveNetworkInfo();
@@ -203,8 +194,9 @@ public class LoginInformationEntry extends AppCompatActivity {
             }
         });
 
+
         return builder;
-    }*/
+    }
 
     @Override
     protected void onStart() {

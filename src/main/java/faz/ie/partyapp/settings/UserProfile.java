@@ -174,9 +174,12 @@ public class UserProfile extends AppCompatActivity {
         });
     }
 
+
     private void updateUserInformation() {
         FullName = mFullNameTextView.getText().toString();
         PhoneNumber = mPhoneNumberTextView.getText().toString();
+
+
 
             Map userinfo = new HashMap();
             userinfo.put("FullName", FullName);

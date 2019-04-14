@@ -191,7 +191,6 @@ public class Chat extends AppCompatActivity {
         });
     }
 
-
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
 
@@ -211,7 +210,6 @@ public class Chat extends AppCompatActivity {
         inflater.inflate(R.menu.chat_activity_menu, menu);
         return true;
     }
-
 
     private ArrayList<ChatObject> resultsChat = new ArrayList<ChatObject>();
     private List<ChatObject> getdataSetChat()

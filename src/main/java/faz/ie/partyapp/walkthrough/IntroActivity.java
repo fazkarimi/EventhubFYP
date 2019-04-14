@@ -71,9 +71,13 @@ public class IntroActivity extends AppCompatActivity {
         // fill list screen
 
         final List<ScreenItem> mList = new ArrayList<>();
-        mList.add(new ScreenItem("Swipe","Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, consectetur  consectetur adipiscing elit",R.drawable.logo3));
-        mList.add(new ScreenItem("Match","Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, consectetur  consectetur adipiscing elit",R.drawable.logo3));
-        mList.add(new ScreenItem("Attend","Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, consectetur  consectetur adipiscing elit",R.drawable.logo3 ));
+
+        mList.add(new ScreenItem("What is Eventhub?","Eventhub is an android mobile application platform that allow users to host and/or attend an event in one place.\n" + "It works by using a swiping functionality which allow users to make a quick decision whether they’re interested or not.\n",R.drawable.eventhub_logo_circle5));
+        mList.add(new ScreenItem("Swipe","When you see an event or user profile, you can swipe left or right. Swiping LEFT indicates that you are not interested and swiping RIGHT indicates that you are interested",R.drawable.swiping));
+        mList.add(new ScreenItem("Match","If 2 users swipe RIGHT on each other, it will produce a match, meaning the 2 users can communicate via our instant messaging, it will also mean, the user looking to attend events can now attend the event they swiped right on",R.drawable.match ));
+        mList.add(new ScreenItem("Attend","Once 2 users have matched, the user looking to attend the event he swiped can now do so and it is up to the event hoste to give the event information via the messaging.",R.drawable.attend));
+        mList.add(new ScreenItem("Messaging","Eventhub has an instant messaging system for you to communicate with the users you have matched with",R.drawable.messaging));
+        mList.add(new ScreenItem("Settings","You can configure your profile, delete account, sign out and more in settings",R.drawable.settings ));
 
         // setup viewpager
         screenPager =findViewById(R.id.screen_viewpager);

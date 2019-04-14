@@ -10,6 +10,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -113,131 +115,111 @@ public class SignUpInformationEntry extends AppCompatActivity {
                 final String PhoneNumber = mPhoneNumber.getText().toString();
                 final String Gender = mGender.getText().toString();
                 final String Age = mAge.getText().toString();
-                checkIfEmailAlreadyExists ();
-                if(Email.isEmpty()||Password.isEmpty()||FullName.isEmpty()||PhoneNumber.isEmpty()||Gender.isEmpty()||Age.isEmpty())
+                //checkIfEmailAlreadyExists();
+
+                final String validatedGender1 = "male";
+                final String validatedGender2 = "Male";
+                final String validatedGender3 = "female";
+                final String validatedGender4 = "Female";
+
+                final int PhoneNumberLength = PhoneNumber.length(); //length of phone number entered
+
+                final int PasswordLength = Password.length(); //length of phone number entered
+
+                //VALIDATION
+
+                if (Email.isEmpty() || Password.isEmpty() || FullName.isEmpty() || PhoneNumber.isEmpty() || Gender.isEmpty() || Age.isEmpty())
                 {
-                    Toast.makeText(SignUpInformationEntry.this, "Not all Fields are filled!", Toast.LENGTH_SHORT).show();
-                    return;
+                    Toast.makeText(SignUpInformationEntry.this, "Fill in all the fields please", Toast.LENGTH_SHORT).show();
+
+                }
+                else if(PasswordLength <= 5 )
+                {
+                    Toast.makeText(SignUpInformationEntry.this, "Password needs to be at least 6 characters long! ", Toast.LENGTH_SHORT).show();
                 }
 
-                final int selectID = mRadioButtonGroup.getCheckedRadioButtonId();
-
-                final RadioButton radioButton = (RadioButton) findViewById(selectID);
-
-                mAuth.createUserWithEmailAndPassword(Email, Password).addOnCompleteListener(SignUpInformationEntry.this, new OnCompleteListener<AuthResult>()
+               else if (PhoneNumberLength != 10 )
                 {
+                    Toast.makeText(SignUpInformationEntry.this, "Enter a valid 10 digits Phone Number! ", Toast.LENGTH_SHORT).show();
+                }
 
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+                else if (Age.equals("15") || Age.equals("14") || Age.equals("13") || Age.equals("12") || Age.equals("11") || Age.equals("10") || Age.equals("9") || Age.equals("8") || Age.equals("7") || Age.equals("6") || Age.equals("5") || Age.equals("4") || Age.equals("3") || Age.equals("2") || Age.equals("1") || Age.equals("0"))
+                {
+                    Toast.makeText(SignUpInformationEntry.this, "You must be 16 or over to use Eventhub.\nPlease enter valid age", Toast.LENGTH_SHORT).show();
+                } else
 
-                        if (task.isSuccessful())
-                        {
+                {
+                    //DO EVERYTHING IN HERE
+                    checkIfEmailAlreadyExists();
 
-                            if(selectID==R.id.look) {
+                    final int selectID = mRadioButtonGroup.getCheckedRadioButtonId();
 
-                                String userID = mAuth.getCurrentUser().getUid();
+                    final RadioButton radioButton = (RadioButton) findViewById(selectID);
 
-                                DatabaseReference currentUserDB = FirebaseDatabase.getInstance().getReference().child("Users")
-                                        .child(userID);
+                    mAuth.createUserWithEmailAndPassword(Email, Password).addOnCompleteListener(SignUpInformationEntry.this, new OnCompleteListener<AuthResult>() {
 
-                                Map userInfo = new HashMap<>();
-                                userInfo.put("FullName", FullName);
-                                userInfo.put("PhoneNumber", PhoneNumber);
-                                userInfo.put("Email", Email);
-                                userInfo.put("Gender", Gender);
-                                userInfo.put("Age", Age);
-                                userInfo.put("Password", Password);
-                                userInfo.put("userType", radioButton.getText().toString());
-                                userInfo.put("profileImageUrl", "defaultUserImage");
-                                currentUserDB.updateChildren(userInfo);
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
 
-                                //checkIfEmailAlreadyExists ();
-                                checkIfEmailIsVerifiedForAttendingUsers();
+                            if (task.isSuccessful()) {
 
-                               /* if(!Gender.equals("male") || !Gender.equals("Male") || !Gender.equals("female") ||!Gender.equals("Female"))
-                                {
+                                if (selectID == R.id.look) {
 
-                                    Toast.makeText(SignUpInformationEntry.this, "Please enter a valid gender", Toast.LENGTH_SHORT).show();
-                                }
-                                else if(Age.equals("15") || Age.equals("14") || Age.equals("13") || Age.equals("12") || Age.equals("11") || Age.equals("10") || Age.equals("9") || Age.equals("8") || Age.equals("7") || Age.equals("6") || Age.equals("5") || Age.equals("4") || Age.equals("3") || Age.equals("2") || Age.equals("1") || Age.equals("0"))
-                                {
+                                    String userID = mAuth.getCurrentUser().getUid();
 
-                                    Toast.makeText(SignUpInformationEntry.this, "You must be 16 or over", Toast.LENGTH_SHORT).show();
-                                }*/
-
-
-
-                                /*Toast.makeText(SignUpInformationEntry.this, "Signed Up Successfully", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(SignUpInformationEntry.this, MainActivity.class);
-                                startActivity(intent);*/
-                            }
-
-                            else if(selectID==R.id.host)
-                            {
-                                String userID = mAuth.getCurrentUser().getUid();
-
-                                DatabaseReference currentUserDB = FirebaseDatabase.getInstance().getReference().child("Users")
-                                        .child(userID);
-
-                                   /* DatabaseReference currentUserDB2 = FirebaseDatabase.getInstance().getReference().child("Users")
-                                             .child(userID);
-
-                                    DatabaseReference currentUserDB3 = FirebaseDatabase.getInstance().getReference().child("Users")
+                                    DatabaseReference currentUserDB = FirebaseDatabase.getInstance().getReference().child("Users")
                                             .child(userID);
 
-                                    DatabaseReference currentUserDB4 = FirebaseDatabase.getInstance().getReference().child("Users")
-                                             .child(userID);
+                                    Map userInfo = new HashMap<>();
+                                    userInfo.put("FullName", FullName);
+                                    userInfo.put("PhoneNumber", PhoneNumber);
+                                    userInfo.put("Email", Email);
+                                    userInfo.put("Gender", Gender);
+                                    userInfo.put("Age", Age);
+                                    userInfo.put("Password", Password);
+                                    userInfo.put("userType", radioButton.getText().toString());
+                                    userInfo.put("profileImageUrl", "defaultUserImage");
+                                    currentUserDB.updateChildren(userInfo);
 
-                                    DatabaseReference currentUserDB5 = FirebaseDatabase.getInstance().getReference().child("Users")
-                                           .child(userID);
+                                    checkIfEmailIsVerifiedForAttendingUsers();
 
-                                    DatabaseReference currentUserDB6 = FirebaseDatabase.getInstance().getReference().child("Users")
-                                           .child(userID);*/
-
-                                Map userInfo = new HashMap<>();
-                                userInfo.put("FullName", FullName);
-                                userInfo.put("PhoneNumber", PhoneNumber);
-                                userInfo.put("Email", Email);
-                                userInfo.put("Gender", Gender);
-                                userInfo.put("Age", Age);
-                                userInfo.put("Password", Password);
-                                userInfo.put("userType", radioButton.getText().toString());
-                                userInfo.put("profileImageUrl", "defaultUserImage");
-
-                                currentUserDB.updateChildren(userInfo);
-                                //checkIfEmailAlreadyExists ();
-
-                                //checkIfEmailIsVerifiedForHostingUsers();
-
-                              /*  if(!Gender.equals("male") || !Gender.equals("Male") || !Gender.equals("female") ||!Gender.equals("Female"))
-                                {
-                                    Toast.makeText(SignUpInformationEntry.this, "Please enter a valid gender", Toast.LENGTH_SHORT).show();
                                 }
-                                else if(Age.equals("15") || Age.equals("14") || Age.equals("13") || Age.equals("12") || Age.equals("11") || Age.equals("10") || Age.equals("9") || Age.equals("8") || Age.equals("7") || Age.equals("6") || Age.equals("5") || Age.equals("4") || Age.equals("3") || Age.equals("2") || Age.equals("1") || Age.equals("0"))
-                                {
-                                    Toast.makeText(SignUpInformationEntry.this, "You must be 16 or over \n Please enter valid age", Toast.LENGTH_SHORT).show();
+
+                                else if (selectID == R.id.host) {
+                                    String userID = mAuth.getCurrentUser().getUid();
+
+                                    DatabaseReference currentUserDB = FirebaseDatabase.getInstance().getReference().child("Users")
+                                            .child(userID);
+
+
+                                    Map userInfo = new HashMap<>();
+                                    userInfo.put("FullName", FullName);
+                                    userInfo.put("PhoneNumber", PhoneNumber);
+                                    userInfo.put("Email", Email);
+                                    userInfo.put("Gender", Gender);
+                                    userInfo.put("Age", Age);
+                                    userInfo.put("Password", Password);
+                                    userInfo.put("userType", radioButton.getText().toString());
+                                    userInfo.put("profileImageUrl", "defaultUserImage");
+
+                                    currentUserDB.updateChildren(userInfo);
+
+                                    Toast.makeText(SignUpInformationEntry.this, "Enter your events information", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(SignUpInformationEntry.this, PartyInformation.class);
+                                    intent.putExtra("Email", Email);
+                                    startActivity(intent);
+
+
                                 }
-                                  /*  currentUserDB2.updateChildren(userInfo);
-                                    currentUserDB3.updateChildren(userInfo);
-                                    currentUserDB4.updateChildren(userInfo);
-                                    currentUserDB5.updateChildren(userInfo);
-                                    currentUserDB6.updateChildren(userInfo);*/
-
-                               Toast.makeText(SignUpInformationEntry.this, "Enter your events information", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(SignUpInformationEntry.this, PartyInformation.class);
-                               intent.putExtra("Email", Email);
-                                startActivity(intent);
-
 
                             }
 
                         }
+                    });
 
-                    }
-                });
-
-                myProgressDialog.setMessage("Signing Up...");
-                myProgressDialog.show();
+                    myProgressDialog.setMessage("Signing Up...");
+                    myProgressDialog.show();
+                }
             }
 
         });

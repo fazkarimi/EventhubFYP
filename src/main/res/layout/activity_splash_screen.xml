@@ -10,12 +10,12 @@
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="0dp"
-        android:layout_height="325dp"
-        android:layout_marginEnd="61dp"
-        android:layout_marginStart="61dp"
+        android:layout_height="339dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="45dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo3" />
+        app:srcCompat="@drawable/eventhub_logo_circle5" />
 </android.support.constraint.ConstraintLayout>

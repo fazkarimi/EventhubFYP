@@ -336,6 +336,7 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         moveTaskToBack(false);
     }
+
 }
 
    /* private void showPopUpDialog()
