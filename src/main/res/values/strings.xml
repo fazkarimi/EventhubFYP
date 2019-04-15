@@ -37,7 +37,6 @@
 
     <string name="numberOfAttempts">Number of attempts: 5</string>
 
-
     <!-- Example General settings -->
     <string name="pref_header_general">General</string>
     <string name="pref_title_social_recommendations">Enable social recommendations</string>
@@ -59,6 +58,21 @@
         <item>0</item>
         <item>-1</item>
     </string-array>
+
+    <string name="dialog_title">Flag this user</string>
+    <string name="ok_label">Submit</string>
+    <string name="dismiss_label">Dismiss</string>
+    <string name="clear_all_label">Clear all</string>
+
+    <string-array name="reasons_item">
+        <item>Feels like a spam</item>
+        <item>Inappropriate Content</item>
+        <item>This account is fake</item>
+        <item>Threatening/Unsafe</item>
+        <item>Bullying</item>
+        <item>No reason</item>
+    </string-array>
+
 
     <!-- Example settings for Data & Sync -->
     <string name="pref_header_data_sync">Data &amp; sync</string>

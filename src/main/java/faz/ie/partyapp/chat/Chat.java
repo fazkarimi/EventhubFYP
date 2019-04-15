@@ -1,5 +1,7 @@
 package faz.ie.partyapp.chat;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
@@ -47,13 +49,20 @@ public class Chat extends AppCompatActivity {
     public RecyclerView.LayoutManager mChatLayoutManager;
     public TextView nameInActionBarTextView;
     private String currentUserID, chatId;
+    public String [] listItems;
+    public boolean [] checkedItems;
+    ArrayList<Integer> mUserItems = new ArrayList<>();
     public String matchId;
     private EditText mSendEditText;
     private Button mSendButton;
     private NestedScrollView mScrollView;
     private TextView mImageIdTextView;
+    private int counter;
+    private FirebaseAuth mAuth;
 
-    DatabaseReference mDatabaseUser, mDatabaseChat;
+
+
+    DatabaseReference mDatabaseUser, mDatabaseChat, mDatabaseFlaggedUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,11 +76,15 @@ public class Chat extends AppCompatActivity {
 
         mScrollView.fullScroll(NestedScrollView.FOCUS_DOWN);
 
+        listItems = getResources().getStringArray(R.array.reasons_item);
+        checkedItems = new boolean[listItems.length];
+
         currentUserID  = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         matchId = getIntent().getExtras().getString("matchId");
         mDatabaseUser = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).child("Connections").child("Matches").child(matchId).child("ChatId");
         mDatabaseChat = FirebaseDatabase.getInstance().getReference().child("Chat");
+        mDatabaseFlaggedUsers = FirebaseDatabase.getInstance().getReference().child("Flagged Users");
 
         getChatId();
 
@@ -159,7 +172,6 @@ public class Chat extends AppCompatActivity {
                         createdByUser = dataSnapshot.child("createdByUser").getValue().toString();
                     }
 
-
                     mScrollView.fullScroll(NestedScrollView.FOCUS_DOWN);
 
                     if(message!=null && createdByUser!=null)
@@ -198,7 +210,10 @@ public class Chat extends AppCompatActivity {
                 onBackPressed();
                 break;
             case R.id.action_flag:
-                Toast.makeText(Chat.this, "User Reported", Toast.LENGTH_SHORT).show();
+                flagUserDialog();
+
+                //allow users to only use this once
+
             default:
         }
         return super.onOptionsItemSelected(item);
@@ -215,6 +230,91 @@ public class Chat extends AppCompatActivity {
     private List<ChatObject> getdataSetChat()
     {
         return resultsChat;
+    }
+
+
+    //ALERT DIALOG FOR FLAGGING USER
+
+    public void flagUserDialog ()
+    {
+        final AlertDialog.Builder mBuilder = new AlertDialog.Builder(Chat.this);
+        mBuilder.setTitle(R.string.dialog_title);
+
+        mBuilder.setMultiChoiceItems(listItems, checkedItems, new DialogInterface.OnMultiChoiceClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int position, boolean isChecked)
+            {
+                AlertDialog dialog = mBuilder.create();
+                Button button = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                          //(AlertDialog.BUTTON_NEUTRAL);
+                if(isChecked)
+                {
+                    mUserItems.add(position);
+                }else
+                    {
+                    mUserItems.remove((Integer.valueOf(position)));
+                       // button.setEnabled(false);
+
+                }
+            }
+        });
+
+        mBuilder.setCancelable(false);
+        mBuilder.setPositiveButton(R.string.ok_label, new DialogInterface.OnClickListener()
+        {
+             String item = "";
+            @Override
+            public void onClick(DialogInterface dialogInterface, int which)
+            {
+                counter ++;
+
+                for (int i = 0; i < mUserItems.size(); i++)
+                {
+                    item = item + listItems[mUserItems.get(i)];
+                    if (i != mUserItems.size() - 1) {
+                        item = item + ", ";
+                    }
+
+
+                    }
+
+                    for (int i = 0; i < checkedItems.length; i++) {
+                    checkedItems[i] = false;
+                    mUserItems.clear();
+
+                }
+                DatabaseReference userBeingFlaggedDB = FirebaseDatabase.getInstance().getReference().child("Flagged Users").child(matchId);
+                DatabaseReference flaggingUser = FirebaseDatabase.getInstance().getReference().child("Flagged Users").child(matchId).child("FlaggedBy");
+                DatabaseReference reasonsDB = FirebaseDatabase.getInstance().getReference().child("Flagged Users").child(matchId).child("Reasons");
+
+                Map userInfo = new HashMap<>();
+                userInfo.put("FlagCounter", counter);
+                userBeingFlaggedDB.setValue(userInfo);
+
+                Map currentUserInfo = new HashMap<>();
+                currentUserInfo.put("FlaggedBy", currentUserID);
+                flaggingUser.setValue(currentUserInfo);
+
+                Map flagInfo = new HashMap<>();
+                flagInfo.put("Reasons", item);
+                reasonsDB.setValue(flagInfo);
+
+            }
+        });
+
+        mBuilder.setNegativeButton(R.string.dismiss_label, new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i)
+            {
+                dialogInterface.dismiss();
+            }
+        });
+
+
+        AlertDialog mDialog = mBuilder.create();
+        mDialog.show();
     }
 
 }
