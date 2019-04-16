@@ -87,15 +87,15 @@ public class LoginInformationEntry extends AppCompatActivity {
                 Toast.makeText(LoginInformationEntry.this, "Please choose whether you want to Host or Attend an event and enter your details", Toast.LENGTH_LONG).show();
             }
         });
-        mGoButton = (Button)findViewById(R.id.goButton);
-        //mFullName = (EditText) findViewById(R.id.fullNameField);
-        mEmail = (EditText) (EditText) findViewById(R.id.emailTxt);
-        mPassword = (EditText) findViewById(R.id.passwordTxtField);
+                mGoButton = (Button)findViewById(R.id.goButton);
+                //mFullName = (EditText) findViewById(R.id.fullNameField);
+                mEmail = (EditText) (EditText) findViewById(R.id.emailTxt);
+                mPassword = (EditText) findViewById(R.id.passwordTxtField);
 
 
-        mGoButton.setOnClickListener(new View.OnClickListener() {
-              @Override
-            public void onClick(View view) {
+                mGoButton.setOnClickListener(new View.OnClickListener() {
+                      @Override
+                    public void onClick(View view) {
 
                   isConnected(LoginInformationEntry.this);
 
@@ -115,8 +115,9 @@ public class LoginInformationEntry extends AppCompatActivity {
                         ;
                         if(task.isSuccessful())
                         {
-
-                            checkEmailVerification();
+                            Intent intent = new Intent(LoginInformationEntry.this, MainActivity.class);
+                            startActivity(intent);
+                            //checkEmailVerification();
                         }
 
                       else if (!isConnected(LoginInformationEntry.this))

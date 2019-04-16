@@ -115,7 +115,7 @@ public class SignUpInformationEntry extends AppCompatActivity {
                 final String PhoneNumber = mPhoneNumber.getText().toString();
                 final String Gender = mGender.getText().toString();
                 final String Age = mAge.getText().toString();
-                //checkIfEmailAlreadyExists();
+                checkIfEmailAlreadyExists();
 
                 final String validatedGender1 = "male";
                 final String validatedGender2 = "Male";
@@ -180,8 +180,10 @@ public class SignUpInformationEntry extends AppCompatActivity {
                                     userInfo.put("userType", radioButton.getText().toString());
                                     userInfo.put("profileImageUrl", "defaultUserImage");
                                     currentUserDB.updateChildren(userInfo);
+                                    Intent intent = new Intent(SignUpInformationEntry.this, LoginInformationEntry.class);
+                                    startActivity(intent);
 
-                                    checkIfEmailIsVerifiedForAttendingUsers();
+                                   // checkIfEmailIsVerifiedForAttendingUsers();
 
                                 }
 

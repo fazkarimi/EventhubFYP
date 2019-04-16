@@ -3,6 +3,7 @@ package faz.ie.partyapp.chat;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,6 +19,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -116,7 +119,7 @@ public class Chat extends AppCompatActivity {
     {
 
     }
-
+    DatabaseReference newMessageDb;
     private void sendMessage()
     {
         String sendMessageText = mSendEditText.getText().toString();
@@ -212,11 +215,44 @@ public class Chat extends AppCompatActivity {
             case R.id.action_flag:
                 flagUserDialog();
 
-                //allow users to only use this once
-
             default:
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void unmatchFlaggedUser()
+    {
+        //CURRENT USER DB
+        DatabaseReference matchedUsersDb = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).child("Connections").child("Matches");
+        DatabaseReference interestedUsersDB = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).child("Connections").child("Interested");
+
+        //UNMATCHING USER
+        DatabaseReference unmatchUsersDB = FirebaseDatabase.getInstance().getReference().child("Users").child(matchId).child("Connections").child("Matches");
+        DatabaseReference unmatchUsersDBForInterested = FirebaseDatabase.getInstance().getReference().child("Users").child(matchId).child("Connections").child("Interested");
+
+        //CHAT DB
+        DatabaseReference ChatDB = FirebaseDatabase.getInstance().getReference().child("Chat");
+
+        if (matchedUsersDb != null && interestedUsersDB!=null && unmatchUsersDB!=null && unmatchUsersDBForInterested!=null && ChatDB!=null )
+        {
+            //REMOVING CHATS BETWEEN 2 USERS
+             ChatDB.child(chatId).removeValue();
+
+            //REMOVING FLAGGED USER FROM CURRENT USERS MATCHES LIST
+            matchedUsersDb.child(matchId).removeValue();
+            interestedUsersDB.child(matchId).removeValue();
+
+            //REMOVING CURRENT USER FROM FLAGGED USERS MATCHES LIST
+            unmatchUsersDB.child(currentUserID).removeValue();
+            unmatchUsersDBForInterested.child(currentUserID).removeValue();
+
+            Intent intent = new Intent(Chat.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+
+            Toast.makeText(Chat.this, "Thank you for flagging this user,\nBy default, the will be deleted from you matches list", Toast.LENGTH_LONG).show();
+
+        }
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -290,7 +326,7 @@ public class Chat extends AppCompatActivity {
 
                 Map userInfo = new HashMap<>();
                 userInfo.put("FlagCounter", counter);
-                userBeingFlaggedDB.setValue(userInfo);
+                userBeingFlaggedDB.updateChildren(userInfo);
 
                 Map currentUserInfo = new HashMap<>();
                 currentUserInfo.put("FlaggedBy", currentUserID);
@@ -299,6 +335,8 @@ public class Chat extends AppCompatActivity {
                 Map flagInfo = new HashMap<>();
                 flagInfo.put("Reasons", item);
                 reasonsDB.setValue(flagInfo);
+
+                unmatchFlaggedUser();
 
             }
         });

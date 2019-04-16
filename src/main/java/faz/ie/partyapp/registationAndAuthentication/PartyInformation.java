@@ -91,8 +91,9 @@ public class PartyInformation extends AppCompatActivity {
                    .child(currentUser).child("Event Information");
 
                 currentUserDB1.setValue(partyInfo);
-
-                checkIfEmailIsVerifiedForHostingUsers();
+                Intent intent = new Intent(PartyInformation.this, LoginInformationEntry.class);
+                startActivity(intent);
+               // checkIfEmailIsVerifiedForHostingUsers();
 
             }
         });
@@ -114,7 +115,7 @@ public class PartyInformation extends AppCompatActivity {
                         final String Email = hostingUserEmail;
                         Intent intent = new Intent(PartyInformation.this, LoginInformationEntry.class);
                         startActivity(intent);
-                        Toast.makeText(PartyInformation.this, "Sign Up was successful!\nA verification link has been sent to "+Email+"\nPlease verify your Email Address and then log in", Toast.LENGTH_LONG).show();
+                        Toast.makeText(PartyInformation.this, "Sign successful!\nA verification link has been sent to "+Email+"\nPlease verify your Email Address and then log in", Toast.LENGTH_LONG).show();
                         mAuth.signOut();
                         finish();
                     }

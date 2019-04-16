@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
                 if(dataSnapshot.exists())
                 {
                     showPopUpDialog(); //new match pop up dialog
-                    String key = FirebaseDatabase.getInstance().getReference().child("Chat").push().getKey(); // creates a new child named Users with a unique ID
+                    String key = FirebaseDatabase.getInstance().getReference().child("Chat").push().getKey(); // creates a new child WITHIN Chat with a unique ID
                     //String key = matchesDB.push().getKey();
                     userTypeDB.child(dataSnapshot.getKey()).child("Connections").child("Matches").child(currentUid).child("ChatId").setValue(key); // adds a child "ChatId" to matches
                     userTypeDB.child(currentUid).child("Connections").child("Matches").child(dataSnapshot.getKey()).child("ChatId").setValue(key);
