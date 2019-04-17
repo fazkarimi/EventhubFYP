@@ -23,13 +23,16 @@
     <string name="title_terms">Terms &amp; Conditions</string>
     <string name="url_terms">https://www.androidhive.info/terms-of-service/</string>
     <string name="title_delete">Delete Account</string>
+    <string name="headind3">Learn more</string>
+    <string name="headind2">Get in touch with us</string>
     <string name="title_version">Version</string>
     <string name="choose_email_client">Choose email client</string>
-    <string name="feedback">Send your feedback</string>
+    <string name="feedback">Feedback</string>
     <string name="manage_title">My Profile</string>
     <string name="key_send_feedback">key_send_feedback</string>
     <string name="key_signout">key_signout</string>
     <string name="key_delete_account">key_delete_account</string>
+    <string name="key_goto_profile">key_goto_profile</string>
 
     <!-- action bar button strings -->
     <string name="actionbarProfile"></string>

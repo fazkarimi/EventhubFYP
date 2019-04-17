@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String currentUid;
 
+    private Button mGoToMessagesBtn, mDismiss;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
 
@@ -80,7 +81,13 @@ public class MainActivity extends AppCompatActivity {
        // getSupportActionBar().setDisplayUseLogoEnabled(true);
         setTitle("Eventhub");
 
+        mGoToMessagesBtn = (Button) findViewById(R.id.btnMessage);
+
+        mDismiss  = (Button) findViewById(R.id.btnKeepSwipping);
+
         myDialog = new Dialog(this);
+
+
 
         userTypeDB = FirebaseDatabase.getInstance().getReference().child("Users");
         //matchesDB = FirebaseDatabase.getInstance().getReference().child("Chat");
@@ -155,6 +162,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+
+
     private void showPopUpDialog()
     {
         Button messageBtn;
@@ -175,7 +185,8 @@ public class MainActivity extends AppCompatActivity {
         messageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                myDialog.dismiss();
+                Intent intent = new Intent(MainActivity.this, Matches.class);
+                startActivity(intent);
             }
         });
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -192,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists())
                 {
-                    showPopUpDialog(); //new match pop up dialog
+                    showPopUpDialog();//new match pop up dialog
                     String key = FirebaseDatabase.getInstance().getReference().child("Chat").push().getKey(); // creates a new child WITHIN Chat with a unique ID
                     //String key = matchesDB.push().getKey();
                     userTypeDB.child(dataSnapshot.getKey()).child("Connections").child("Matches").child(currentUid).child("ChatId").setValue(key); // adds a child "ChatId" to matches

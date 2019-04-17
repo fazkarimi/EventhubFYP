@@ -22,13 +22,13 @@
             android:text="CONGRATULATIONS"
             android:textStyle="bold"
             android:textSize="35dp"
-            android:textColor="@color/bluelight"
+            android:textColor="@color/white"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/bluelight"
+            android:textColor="@color/white"
             android:textSize="20dp"
             android:text="You've just got a new match!"
             android:layout_gravity="center_horizontal"
@@ -40,7 +40,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="25dp"
-        android:background="@drawable/buttonstyle1"
+        android:onClick="GoToMessages"
+        android:background="@drawable/popupbuttonstyle"
         android:text="Message"/>
     <Button
         android:id="@+id/btnKeepSwipping"

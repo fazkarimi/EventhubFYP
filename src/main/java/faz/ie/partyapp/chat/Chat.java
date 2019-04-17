@@ -119,7 +119,9 @@ public class Chat extends AppCompatActivity {
     {
 
     }
+
     DatabaseReference newMessageDb;
+
     private void sendMessage()
     {
         String sendMessageText = mSendEditText.getText().toString();
@@ -135,7 +137,8 @@ public class Chat extends AppCompatActivity {
         {
             Toast.makeText(Chat.this, "Enter a message before sending", Toast.LENGTH_SHORT).show();
         }
-        mSendEditText.setText(null); //emptying textfield after a message is sent
+        mSendEditText.setText(null);
+        //emptying textfield after a message is sent
     }
 
     private void getChatId()
@@ -212,8 +215,15 @@ public class Chat extends AppCompatActivity {
             case R.id.home:
                 onBackPressed();
                 break;
-            case R.id.action_flag:
+            case R.id.Unmatch:
+                unmatchFlaggedUser();
+                Toast.makeText(Chat.this, "User is unmatched", Toast.LENGTH_LONG).show();
+                break;
+
+            case R.id.flagUser:
                 flagUserDialog();
+                Toast.makeText(Chat.this, "Thank you for flagging this user,\nBy default, the will be deleted from you matches list", Toast.LENGTH_LONG).show();
+                break;
 
             default:
         }
@@ -222,6 +232,7 @@ public class Chat extends AppCompatActivity {
 
     private void unmatchFlaggedUser()
     {
+
         //CURRENT USER DB
         DatabaseReference matchedUsersDb = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).child("Connections").child("Matches");
         DatabaseReference interestedUsersDB = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).child("Connections").child("Interested");
@@ -242,7 +253,7 @@ public class Chat extends AppCompatActivity {
             matchedUsersDb.child(matchId).removeValue();
             interestedUsersDB.child(matchId).removeValue();
 
-            //REMOVING CURRENT USER FROM FLAGGED USERS MATCHES LIST
+            //REMOVING CURRENT USER FROM FLAGGED USERS MATCHES LIST AND INTEREST LIST
             unmatchUsersDB.child(currentUserID).removeValue();
             unmatchUsersDBForInterested.child(currentUserID).removeValue();
 
@@ -250,7 +261,7 @@ public class Chat extends AppCompatActivity {
             startActivity(intent);
             finish();
 
-            Toast.makeText(Chat.this, "Thank you for flagging this user,\nBy default, the will be deleted from you matches list", Toast.LENGTH_LONG).show();
+
 
         }
     }

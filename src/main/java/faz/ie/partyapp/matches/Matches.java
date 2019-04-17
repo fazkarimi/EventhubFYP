@@ -33,6 +33,8 @@ public class Matches extends AppCompatActivity {
     public RecyclerView.Adapter mMatchesAdapter;
     public RecyclerView.LayoutManager mMatchesLayoutManager;
 
+    DatabaseReference lastMessageRecievedOrSent;
+
     private String currentUserID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,8 @@ public class Matches extends AppCompatActivity {
         setTitle("My Matches");
 
         currentUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        lastMessageRecievedOrSent = FirebaseDatabase.getInstance().getReference().child("Chat");
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mRecyclerView.setNestedScrollingEnabled(false);

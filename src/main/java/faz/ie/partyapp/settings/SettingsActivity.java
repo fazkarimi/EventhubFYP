@@ -104,6 +104,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         }
     };
 
+
+
     public static class MainPreferenceFragment extends PreferenceFragment {
         @Override
         public void onCreate(final Bundle savedInstanceState) {
@@ -124,11 +126,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                     return true;
                 }
             });
-
-
-
-           // bindPreferenceSummaryToValue(findPreference(getString(R.string.key_gallery_name)));
-
 
         }
     }
@@ -158,10 +155,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         context.startActivity(Intent.createChooser(intent, context.getString(R.string.choose_email_client)));
     }
 
-    public static void goToProfile()
-    {
 
-    }
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
 

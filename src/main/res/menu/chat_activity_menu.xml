@@ -2,9 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_flag"
-        android:icon="@drawable/flag_icon"
-        android:title="Flag User"
-        app:showAsAction="always"/>
+        android:id="@+id/Unmatch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checkable="false"
+        android:enabled="true"
+        android:title="Unmatch this user"/>
+
+    <item
+        android:id="@+id/flagUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checkable="false"
+        android:enabled="true"
+        android:title="Flag this user"/>
+
 
 </menu>

@@ -179,6 +179,7 @@ public class SignUpInformationEntry extends AppCompatActivity {
                                     userInfo.put("Password", Password);
                                     userInfo.put("userType", radioButton.getText().toString());
                                     userInfo.put("profileImageUrl", "defaultUserImage");
+
                                     currentUserDB.updateChildren(userInfo);
                                     Intent intent = new Intent(SignUpInformationEntry.this, LoginInformationEntry.class);
                                     startActivity(intent);

@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#262938</color>
     <color name="colorPrimaryDark">#181A24</color>
-    <color name="dialogBG">#2B2929</color>
+    <color name="dialogBG">#FFFFFF</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorTransparentWhite">#cccccc</color>
     <color name="bluedark">#2f333f</color>
@@ -14,6 +14,14 @@
     <color name="grey">#383838</color>
     <color name="cyan">#009688</color>
     <color name="morecyan">#2AAA9D</color>
+    <color name="gradient_start">#2F45AA</color>
+    <color name="gradient_end">#2AAA9D</color>
+    <color name="congrats_start">#FFFFFF</color>
+    <color name="congrats_end">#000000</color>
+    <color name="message_start">#CA1000</color>
+    <color name="message_end">#EE00AA</color>
+    <color name="swiping_start">#FFFFFF</color>
+    <color name="swiping_end">#D3AF00</color>
 
     <color name="black">#000000</color>
 

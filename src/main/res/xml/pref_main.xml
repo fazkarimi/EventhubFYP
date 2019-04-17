@@ -1,56 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory android:title="Account Settings">
 
-        <Preference android:summary="@string/manage_acc" android:title="@string/manage_title">
-            <intent
-            android:parentActivityName = "ie.partyapp.Intent.MainActivity"/>
-
-        </Preference>
-
-
-        <Preference
-            android:summary="@string/delete_acc"
-            android:key="@string/key_delete_account"
-            android:title="@string/title_delete" />
-
-        <Preference
-            android:summary="@string/signout_summary"
-            android:title="@string/signout" />
-
-    </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/pref_header_about">
 
         <Preference
             android:selectable="false"
-            android:summary="@string/summary_about" />
+            android:summary="@string/summary_about" >
+        </Preference>
 
         <Preference
             android:summary="@string/app_version"
-            android:title="@string/title_version" />
+            android:title="@string/title_version" >
+        </Preference>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/headind2">
 
         <Preference
             android:key="@string/key_send_feedback"
             android:summary="@string/summary_support"
             android:title="@string/feedback" />
+    </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/headind3">
         <!-- preference opens url in browser -->
         <Preference
             android:summary="@string/summary_faq"
             android:title="@string/title_faq">
-            <intent
-                android:action="android.intent.action.VIEW"/>
+
         </Preference>
 
-        <Preference android:title="@string/privacy_policy">
-            <intent
-                android:action="android.intent.action.VIEW"/>
-        </Preference>
+        <Preference
+            android:title="@string/privacy_policy"/>
 
-        <Preference android:title="@string/title_terms">
-            <intent
-                android:action="android.intent.action." />
+        <Preference
+            android:title="@string/title_terms">
+
         </Preference>
     </PreferenceCategory>
 </PreferenceScreen>
