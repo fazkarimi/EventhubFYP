@@ -3,6 +3,7 @@ package faz.ie.partyapp.matches;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -32,6 +33,7 @@ public class Matches extends AppCompatActivity {
     public RecyclerView mRecyclerView;
     public RecyclerView.Adapter mMatchesAdapter;
     public RecyclerView.LayoutManager mMatchesLayoutManager;
+    public DividerItemDecoration mDividerItemDecoration;
 
     DatabaseReference lastMessageRecievedOrSent;
 
@@ -47,6 +49,9 @@ public class Matches extends AppCompatActivity {
         lastMessageRecievedOrSent = FirebaseDatabase.getInstance().getReference().child("Chat");
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(mRecyclerView.getContext(), DividerItemDecoration.HORIZONTAL));;
+        //mRecyclerView.addItemDecoration(mDividerItemDecoration);
+
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setHasFixedSize(true);
         mMatchesLayoutManager = new LinearLayoutManager(Matches.this);
