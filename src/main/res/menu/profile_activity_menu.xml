@@ -1,0 +1,37 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="faz.ie.partyapp.PartyApp">
+
+    <item
+        android:id="@+id/menuSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:enabled="true"
+        android:checkable="false"
+        android:title="Settings"
+        android:visible="true"/>
+    <item
+
+        android:id="@+id/menuSignOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checkable="false"
+        android:enabled="true"
+        android:title="Sign Out"/>
+
+    <item
+        android:id="@+id/action_main"
+        android:icon="@drawable/main_icon"
+        android:title="Home Page"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/action_matches"
+        android:icon="@drawable/matches_icon"
+        android:title="Home Page"
+        app:showAsAction="always"/>
+</menu>
+
+
+
+

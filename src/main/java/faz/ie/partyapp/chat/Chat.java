@@ -216,13 +216,12 @@ public class Chat extends AppCompatActivity {
                 onBackPressed();
                 break;
             case R.id.Unmatch:
-                unmatchFlaggedUser();
-                Toast.makeText(Chat.this, "User is unmatched", Toast.LENGTH_LONG).show();
+                unmatchAlertDialog();
                 break;
 
             case R.id.flagUser:
                 flagUserDialog();
-                Toast.makeText(Chat.this, "Thank you for flagging this user,\nBy default, the will be deleted from you matches list", Toast.LENGTH_LONG).show();
+                //Toast.makeText(Chat.this, "Thank you for flagging this user,\nBy default, the will be deleted from you matches list", Toast.LENGTH_LONG).show();
                 break;
 
             default:
@@ -237,7 +236,7 @@ public class Chat extends AppCompatActivity {
         DatabaseReference matchedUsersDb = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).child("Connections").child("Matches");
         DatabaseReference interestedUsersDB = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).child("Connections").child("Interested");
 
-        //UNMATCHING USER
+        //UNMATCHING USER DB
         DatabaseReference unmatchUsersDB = FirebaseDatabase.getInstance().getReference().child("Users").child(matchId).child("Connections").child("Matches");
         DatabaseReference unmatchUsersDBForInterested = FirebaseDatabase.getInstance().getReference().child("Users").child(matchId).child("Connections").child("Interested");
 
@@ -260,8 +259,6 @@ public class Chat extends AppCompatActivity {
             Intent intent = new Intent(Chat.this, MainActivity.class);
             startActivity(intent);
             finish();
-
-
 
         }
     }
@@ -300,10 +297,12 @@ public class Chat extends AppCompatActivity {
                     mUserItems.add(position);
                 }else
                     {
-                    mUserItems.remove((Integer.valueOf(position)));
+                    //mUserItems.remove((Integer.valueOf(position)));
                        // button.setEnabled(false);
+                        Toast.makeText(Chat.this, "Please select a reason for the flagging of this user", Toast.LENGTH_LONG).show();
 
-                }
+
+                    }
             }
         });
 
@@ -347,6 +346,8 @@ public class Chat extends AppCompatActivity {
                 flagInfo.put("Reasons", item);
                 reasonsDB.setValue(flagInfo);
 
+                Toast.makeText(Chat.this, "Thank you for flagging this user,\nBy default, the will be deleted from you matches list", Toast.LENGTH_LONG).show();
+
                 unmatchFlaggedUser();
 
             }
@@ -365,5 +366,37 @@ public class Chat extends AppCompatActivity {
         AlertDialog mDialog = mBuilder.create();
         mDialog.show();
     }
+
+    public void unmatchAlertDialog ()
+    {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(Chat.this);
+        builder.setTitle("Unmatch this user");
+        builder.setMessage("Are you sure you want to Unmatch this user?");
+        builder.setCancelable(false);
+
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i)
+            {
+                unmatchFlaggedUser();
+                Toast.makeText(Chat.this, "User is unmatched", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i)
+            {
+                dialogInterface.dismiss();
+            }
+        });
+
+        AlertDialog mDialog = builder.create();
+        mDialog.show();
+    }
+
+
 
 }

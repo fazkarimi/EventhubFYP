@@ -9,8 +9,10 @@
 
 package faz.ie.partyapp.main;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -162,6 +164,42 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void signOutAlertDialog ()
+    {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("Sign Out");
+        builder.setMessage("Are you sure you want to Sign out?");
+        builder.setCancelable(false);
+
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i)
+            {
+
+                FirebaseAuth.getInstance().signOut();
+                Intent intent3 = new Intent(MainActivity.this, LoginORSignup.class);
+                startActivity(intent3);
+                Toast.makeText(MainActivity.this, "Signed out successfully", Toast.LENGTH_SHORT).show();
+                finish();
+
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i)
+            {
+                dialogInterface.dismiss();
+            }
+        });
+
+        AlertDialog mDialog = builder.create();
+        mDialog.show();
+    }
+
+
 
 
 
@@ -311,11 +349,7 @@ public class MainActivity extends AppCompatActivity {
                 onBackPressed();
                 break;
             case R.id.menuSignOut:
-                FirebaseAuth.getInstance().signOut();
-                Intent intent3 = new Intent(MainActivity.this, LoginORSignup.class);
-                startActivity(intent3);
-                Toast.makeText(MainActivity.this, "Signed out successfully", Toast.LENGTH_SHORT).show();
-                finish();
+                signOutAlertDialog();
                 return true;
             case R.id.menuSettings:
                 Intent intent2 = new Intent(MainActivity.this, SettingsActivity.class);

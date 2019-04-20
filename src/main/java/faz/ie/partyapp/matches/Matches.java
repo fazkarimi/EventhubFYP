@@ -1,5 +1,7 @@
 package faz.ie.partyapp.matches;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -69,11 +71,7 @@ public class Matches extends AppCompatActivity {
                 onBackPressed();
                 break;
             case R.id.menuSignOut:
-                FirebaseAuth.getInstance().signOut();
-                Intent intent3 = new Intent(Matches.this, LoginORSignup.class);
-                startActivity(intent3);
-                Toast.makeText(Matches.this, "Signed out successfully", Toast.LENGTH_SHORT).show();
-                finish();
+                signOutAlertDialog();
                 return true;
             case R.id.menuSettings:
                 Intent intent2 = new Intent(Matches.this, SettingsActivity.class);
@@ -124,6 +122,41 @@ public class Matches extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void signOutAlertDialog ()
+    {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(Matches.this);
+        builder.setTitle("Sign Out");
+        builder.setMessage("Are you sure you want to Sign out?");
+        builder.setCancelable(false);
+
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i)
+            {
+
+                FirebaseAuth.getInstance().signOut();
+                Intent intent3 = new Intent(Matches.this, LoginORSignup.class);
+                startActivity(intent3);
+                Toast.makeText(Matches.this, "Signed out successfully", Toast.LENGTH_SHORT).show();
+                finish();
+
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i)
+            {
+                dialogInterface.dismiss();
+            }
+        });
+
+        AlertDialog mDialog = builder.create();
+        mDialog.show();
     }
 
 

@@ -1,5 +1,7 @@
 package faz.ie.partyapp.settings;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.content.Context;
@@ -133,6 +135,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
 
 
+
+
     /**
      * Email client intent to send support mail
      * Appends the necessary device information to email body
@@ -155,6 +159,41 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         context.startActivity(Intent.createChooser(intent, context.getString(R.string.choose_email_client)));
     }
 
+    public void signOutAlertDialog ()
+    {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
+        builder.setTitle("Sign Out");
+        builder.setMessage("Are you sure you want to Sign out?");
+        builder.setCancelable(false);
+
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i)
+            {
+
+                FirebaseAuth.getInstance().signOut();
+                Intent intent3 = new Intent(SettingsActivity.this, LoginORSignup.class);
+                startActivity(intent3);
+                Toast.makeText(SettingsActivity.this, "Signed out successfully", Toast.LENGTH_SHORT).show();
+                finish();
+
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i)
+            {
+                dialogInterface.dismiss();
+            }
+        });
+
+        AlertDialog mDialog = builder.create();
+        mDialog.show();
+    }
+
 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -163,11 +202,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 onBackPressed();
                 break;
             case R.id.menuSignOut:
-                FirebaseAuth.getInstance().signOut();
-                Intent intent3 = new Intent(SettingsActivity.this, LoginORSignup.class);
-                startActivity(intent3);
-                Toast.makeText(SettingsActivity.this, "Signed out successfully", Toast.LENGTH_SHORT).show();
-                finish();
+                signOutAlertDialog();
                 return true;
 
             case R.id.action_main:
