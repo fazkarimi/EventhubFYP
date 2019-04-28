@@ -42,7 +42,7 @@ public class LoginInformationEntry extends AppCompatActivity {
     private int counter = 5;
 
 
-    private TextView Info, noAcc;
+    private TextView Info, noAcc, forgotPass;
 
     private ProgressDialog myProgressDialog2;
 
@@ -61,6 +61,7 @@ public class LoginInformationEntry extends AppCompatActivity {
 
         Info.setText(getResources().getString(R.string.numberOfAttempts));
         noAcc = (TextView) findViewById(R.id.noAccText);
+        forgotPass = (TextView) findViewById(R.id.tvForgotPass);
         myProgressDialog2 = new ProgressDialog(this);
 
         mAuth = FirebaseAuth.getInstance();
@@ -78,6 +79,16 @@ public class LoginInformationEntry extends AppCompatActivity {
             }
         };
 
+       forgotPass.setOnClickListener(new View.OnClickListener()
+       {
+           @Override
+           public void onClick(View view)
+           {
+               Intent intent = new Intent(LoginInformationEntry.this, ForgotPassword.class);
+               startActivity(intent);
+           }
+       });
+
         noAcc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -93,31 +104,32 @@ public class LoginInformationEntry extends AppCompatActivity {
                 mPassword = (EditText) findViewById(R.id.passwordTxtField);
 
 
-                mGoButton.setOnClickListener(new View.OnClickListener() {
+                mGoButton.setOnClickListener(new View.OnClickListener()
+                {
                       @Override
-                    public void onClick(View view) {
+                    public void onClick(View view)
+                      {
 
-                  isConnected(LoginInformationEntry.this);
+                        isConnected(LoginInformationEntry.this);
 
-                final String email = mEmail.getText().toString();
-                final String password = mPassword.getText().toString();
+                        final String email = mEmail.getText().toString();
+                        final String password = mPassword.getText().toString();
 
-                  if(email.isEmpty()||password.isEmpty())
-                  {
-                      Toast.makeText(LoginInformationEntry.this, "Please enter your Email Address and Password", Toast.LENGTH_SHORT).show();
-                      return;
-                  }
+                          if(email.isEmpty()||password.isEmpty())
+                          {
+                              Toast.makeText(LoginInformationEntry.this, "Please enter your Email Address and Password", Toast.LENGTH_SHORT).show();
+                              return;
+                          }
 
                   mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(LoginInformationEntry.this, new OnCompleteListener<AuthResult>() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        //Log.v("partyApp",task.getException().getMessage());
-                        ;
+                    public void onComplete(@NonNull Task<AuthResult> task)
+                    {
+
                         if(task.isSuccessful())
                         {
-                            Intent intent = new Intent(LoginInformationEntry.this, MainActivity.class);
-                            startActivity(intent);
-                            //checkEmailVerification();
+                            checkEmailVerification();
+
                         }
 
                       else if (!isConnected(LoginInformationEntry.this))
@@ -148,22 +160,24 @@ public class LoginInformationEntry extends AppCompatActivity {
     private void checkEmailVerification()
     {
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
-        boolean emailFlag = firebaseUser.isEmailVerified();
+        Boolean emailFlag = firebaseUser.isEmailVerified();
 
         if(emailFlag)
         {
+
             Intent intent = new Intent(LoginInformationEntry.this, MainActivity.class);
             startActivity(intent);
+            finish();
         }
         else
         {
+
             myProgressDialog2.dismiss();
-            Toast.makeText(LoginInformationEntry.this, "Verify your Email Address", Toast.LENGTH_LONG).show();
+            Toast.makeText(LoginInformationEntry.this, "Verify your Email address", Toast.LENGTH_LONG).show();
             mAuth.signOut();
 
         }
     }
-
 
     public boolean isConnected(Context context) {
 
@@ -184,17 +198,17 @@ public class LoginInformationEntry extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(c);
         builder.setTitle("No Internet Connection");
-        builder.setMessage("You need to have Mobile Data or wifi to access this. Press ok to Exit");
+        builder.setMessage("Please check your internet connection. Press Ok to exit");
 
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                finish();
+                myProgressDialog2.dismiss();
+                dialog.dismiss();
             }
         });
-
 
         return builder;
     }

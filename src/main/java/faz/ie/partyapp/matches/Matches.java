@@ -35,9 +35,8 @@ public class Matches extends AppCompatActivity {
     public RecyclerView mRecyclerView;
     public RecyclerView.Adapter mMatchesAdapter;
     public RecyclerView.LayoutManager mMatchesLayoutManager;
-    public DividerItemDecoration mDividerItemDecoration;
 
-    DatabaseReference lastMessageRecievedOrSent;
+
 
     private String currentUserID;
     @Override
@@ -48,7 +47,7 @@ public class Matches extends AppCompatActivity {
 
         currentUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        lastMessageRecievedOrSent = FirebaseDatabase.getInstance().getReference().child("Chat");
+
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(mRecyclerView.getContext(), DividerItemDecoration.HORIZONTAL));;

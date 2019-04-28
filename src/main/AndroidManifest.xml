@@ -9,13 +9,17 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/logo3"
+        android:icon="@drawable/eventhub_logo_circle5"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat">
-        <activity android:name=".settings.AppSettings"></activity>
-        <activity android:name=".walkthrough.IntroActivity" />
+        <activity android:name=".registationAndAuthentication.ForgotPassword"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".registationAndAuthentication.ForgotPassword">
+        </activity>
+        <activity android:name=".walkthrough.IntroActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".chat.Chat"
             android:parentActivityName=".matches.Matches"
@@ -26,7 +30,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".settings.SettingsActivity"
-            android:parentActivityName=".main.MainActivity" />
+
+            android:parentActivityName=".settings.SettingsActivity"
+            android:screenOrientation="portrait">
+        </activity>
         <activity android:name=".registationAndAuthentication.chooseToHostOrAttend" />
         <activity
             android:name=".others.SplashScreen"

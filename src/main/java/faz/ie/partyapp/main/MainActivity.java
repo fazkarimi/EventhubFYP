@@ -8,7 +8,6 @@
 
 
 package faz.ie.partyapp.main;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -25,7 +24,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -35,10 +33,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import faz.ie.partyapp.R;
 import faz.ie.partyapp.models.Event;
 import faz.ie.partyapp.registationAndAuthentication.LoginORSignup;
@@ -52,66 +48,34 @@ public class MainActivity extends AppCompatActivity {
 
     Dialog myDialog;
     User user_data[];
-
     Event event_data[];
-
     private arrayAdapter mArrayAdapter;
-    //private eventsArrayAdapter mEventArrayAdapter;
     private int i;
-
     private String currentUid;
-
     private Button mGoToMessagesBtn, mDismiss;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
-
     ListView listView;
     List<User> rowItemsForUser;
-
     List<Event> rowItemsForEvents;
-
     private DatabaseReference userTypeDB;
-   // private DatabaseReference matchesDB;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_activity);
-
-        //getSupportActionBar().setDisplayShowHomeEnabled(true);
-       // getSupportActionBar().setLogo(R.drawable.logo3);
-       // getSupportActionBar().setDisplayUseLogoEnabled(true);
         setTitle("Eventhub");
-
         mGoToMessagesBtn = (Button) findViewById(R.id.btnMessage);
-
         mDismiss  = (Button) findViewById(R.id.btnKeepSwipping);
-
         myDialog = new Dialog(this);
-
-
-
         userTypeDB = FirebaseDatabase.getInstance().getReference().child("Users");
-        //matchesDB = FirebaseDatabase.getInstance().getReference().child("Chat");
-
         mAuth = FirebaseAuth.getInstance();
-
         currentUid = mAuth.getCurrentUser().getUid();
         checkUseType();
         rowItemsForUser = new ArrayList<User>();
-
         rowItemsForEvents = new ArrayList<Event>();
-
         mArrayAdapter = new arrayAdapter(this, R.layout.item, rowItemsForUser);
-
-     //   mEventArrayAdapter = new eventsArrayAdapter(this, R.layout.event_item, rowItemsForEvents);
-
-
         SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
-        SwipeFlingAdapterView flingContainerForEvents = (SwipeFlingAdapterView) findViewById(R.id.frame);
         flingContainer.setAdapter(mArrayAdapter);
-
-
         flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
             @Override
             public void removeFirstObjectInAdapter() {
@@ -125,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
                 String userid = userInfo.getUserId();
                 userTypeDB.child(userid).child("Connections").child("Not Interested").child(currentUid).setValue(true);
                // Toast.makeText(MainActivity.this, "Not Interested!", Toast.LENGTH_SHORT).show();
-
             }
 
             @Override
@@ -150,18 +113,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Optionally add an OnItemClickListener
+
         flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
             @Override
 
-            // code here for when the user taps on the image, it goes to next image...
+            //TO DO: code here for when the user taps on the image, it goes to next image...
 
-            public void onItemClicked(int itemPosition, Object dataObject) {
-
-                //Toast.makeText(MainActivity.this, "Next Picture...", Toast.LENGTH_SHORT).show();
-            }
+            public void onItemClicked(int itemPosition, Object dataObject) { }
         });
-
     }
 
     public void signOutAlertDialog ()
@@ -170,19 +129,16 @@ public class MainActivity extends AppCompatActivity {
         builder.setTitle("Sign Out");
         builder.setMessage("Are you sure you want to Sign out?");
         builder.setCancelable(false);
-
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener()
         {
             @Override
             public void onClick(DialogInterface dialogInterface, int i)
             {
-
                 FirebaseAuth.getInstance().signOut();
                 Intent intent3 = new Intent(MainActivity.this, LoginORSignup.class);
                 startActivity(intent3);
                 Toast.makeText(MainActivity.this, "Signed out successfully", Toast.LENGTH_SHORT).show();
                 finish();
-
             }
         });
 
@@ -199,27 +155,19 @@ public class MainActivity extends AppCompatActivity {
         mDialog.show();
     }
 
-
-
-
-
     private void showPopUpDialog()
     {
         Button messageBtn;
         Button keepSwippingBtn;
-
         myDialog.setContentView(R.layout.newmatchpopup);
-
         keepSwippingBtn = (Button) myDialog.findViewById(R.id.btnKeepSwipping);
         messageBtn = (Button) myDialog.findViewById(R.id.btnMessage);
-
         keepSwippingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 myDialog.dismiss();
             }
         });
-
         messageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -229,50 +177,36 @@ public class MainActivity extends AppCompatActivity {
         });
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         myDialog.show();
-
     }
-
     private void isConnectionMatch(String userid)
     {
         DatabaseReference currentUserConnection = userTypeDB.child(currentUid).child("Connections").child("Interested").child(userid);
-
         currentUserConnection.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists())
                 {
-                    showPopUpDialog();//new match pop up dialog
+                    showPopUpDialog();
                     String key = FirebaseDatabase.getInstance().getReference().child("Chat").push().getKey(); // creates a new child WITHIN Chat with a unique ID
-                    //String key = matchesDB.push().getKey();
                     userTypeDB.child(dataSnapshot.getKey()).child("Connections").child("Matches").child(currentUid).child("ChatId").setValue(key); // adds a child "ChatId" to matches
                     userTypeDB.child(currentUid).child("Connections").child("Matches").child(dataSnapshot.getKey()).child("ChatId").setValue(key);
-
-                    //trigger email to be sent
-
-
                 }
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            public void onCancelled(DatabaseError databaseError) { }
         });
     }
-
     static void makeToast(Context ctx, String s) {
         Toast.makeText(ctx, s, Toast.LENGTH_SHORT).show();
     }
-
     private String mUserType;
     private String otherUsertype;
 
-    public void checkUseType()//need to reference sim coder here
+    public void checkUseType()
     {
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
         DatabaseReference userDb = userTypeDB.child(user.getUid());
-
         userDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)
@@ -383,32 +317,3 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
-
-   /* private void showPopUpDialog()
-    {
-            Button messageBtn;
-            Button keepSwippingBtn;
-
-            myDialog.addContentView(R.layout.newmatchpopup);
-
-            keepSwippingBtn = (Button) myDialog.findViewById(R.id.btnKeepSwipping);
-            messageBtn = (Button) myDialog.findViewById(R.id.btnMessage);
-
-            keepSwippingBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    myDialog.dismiss();
-                }
-            });
-
-            messageBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    myDialog.dismiss();
-                }
-            });
-            myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            myDialog.show();
-
-
-    }*/

@@ -1,6 +1,7 @@
 package faz.ie.partyapp.chat;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -62,39 +63,27 @@ public class Chat extends AppCompatActivity {
     private TextView mImageIdTextView;
     private int counter;
     private FirebaseAuth mAuth;
-
-
-
+    private ProgressDialog myProgressDialog2;
     DatabaseReference mDatabaseUser, mDatabaseChat, mDatabaseFlaggedUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        myProgressDialog2 = new ProgressDialog(this);
         setTitle("Chat Messenger");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
         mScrollView =  (NestedScrollView) findViewById(R.id.scrollView);
-        //mImageIdTextView = (TextView) findViewById(R.id.matchId);
-
-        mScrollView.fullScroll(NestedScrollView.FOCUS_DOWN);
-
         listItems = getResources().getStringArray(R.array.reasons_item);
         checkedItems = new boolean[listItems.length];
-
         currentUserID  = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
         matchId = getIntent().getExtras().getString("matchId");
         mDatabaseUser = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).child("Connections").child("Matches").child(matchId).child("ChatId");
         mDatabaseChat = FirebaseDatabase.getInstance().getReference().child("Chat");
         mDatabaseFlaggedUsers = FirebaseDatabase.getInstance().getReference().child("Flagged Users");
-
         getChatId();
-
         mSendButton =  findViewById(R.id.sendButton);
         mSendEditText = findViewById(R.id.message);
-
-
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setHasFixedSize(false);
@@ -109,18 +98,9 @@ public class Chat extends AppCompatActivity {
             public void onClick(View view)
             {
                 sendMessage();
-                //mScrollView.fullScroll(NestedScrollView.FOCUS_DOWN);
             }
         });
-
     }
-
-    public void sentAutoMessage()
-    {
-
-    }
-
-    DatabaseReference newMessageDb;
 
     private void sendMessage()
     {
@@ -138,9 +118,7 @@ public class Chat extends AppCompatActivity {
             Toast.makeText(Chat.this, "Enter a message before sending", Toast.LENGTH_SHORT).show();
         }
         mSendEditText.setText(null);
-        //emptying textfield after a message is sent
     }
-
     private void getChatId()
     {
         mDatabaseUser.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -153,15 +131,11 @@ public class Chat extends AppCompatActivity {
                     getChatMessages();
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError)
-            {
-
-            }
+            { }
         });
     }
-
     private void getChatMessages()
     {
         mDatabaseChat.addChildEventListener(new ChildEventListener() {
@@ -182,7 +156,7 @@ public class Chat extends AppCompatActivity {
 
                     if(message!=null && createdByUser!=null)
                     {
-                        Boolean currentUserBoolean = false;
+                        boolean currentUserBoolean = false;
 
                         if(createdByUser.equals(currentUserID))
                         {
@@ -195,35 +169,30 @@ public class Chat extends AppCompatActivity {
                 }
             }
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-            }
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) { }
             @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-            }
+            public void onChildRemoved(DataSnapshot dataSnapshot) { }
             @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-            }
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) { }
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
+            public void onCancelled(DatabaseError databaseError) { }
         });
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-
             case R.id.home:
                 onBackPressed();
                 break;
             case R.id.Unmatch:
                 unmatchAlertDialog();
                 break;
-
+            case R.id.clearConvo:
+                clearChatAlertDialog();
+                break;
             case R.id.flagUser:
                 flagUserDialog();
-                //Toast.makeText(Chat.this, "Thank you for flagging this user,\nBy default, the will be deleted from you matches list", Toast.LENGTH_LONG).show();
                 break;
-
             default:
         }
         return super.onOptionsItemSelected(item);
@@ -276,9 +245,6 @@ public class Chat extends AppCompatActivity {
         return resultsChat;
     }
 
-
-    //ALERT DIALOG FOR FLAGGING USER
-
     public void flagUserDialog ()
     {
         final AlertDialog.Builder mBuilder = new AlertDialog.Builder(Chat.this);
@@ -297,15 +263,11 @@ public class Chat extends AppCompatActivity {
                     mUserItems.add(position);
                 }else
                     {
-                    //mUserItems.remove((Integer.valueOf(position)));
-                       // button.setEnabled(false);
+
                         Toast.makeText(Chat.this, "Please select a reason for the flagging of this user", Toast.LENGTH_LONG).show();
-
-
                     }
             }
         });
-
         mBuilder.setCancelable(false);
         mBuilder.setPositiveButton(R.string.ok_label, new DialogInterface.OnClickListener()
         {
@@ -321,14 +283,10 @@ public class Chat extends AppCompatActivity {
                     if (i != mUserItems.size() - 1) {
                         item = item + ", ";
                     }
-
-
-                    }
-
+                }
                     for (int i = 0; i < checkedItems.length; i++) {
                     checkedItems[i] = false;
                     mUserItems.clear();
-
                 }
                 DatabaseReference userBeingFlaggedDB = FirebaseDatabase.getInstance().getReference().child("Flagged Users").child(matchId);
                 DatabaseReference flaggingUser = FirebaseDatabase.getInstance().getReference().child("Flagged Users").child(matchId).child("FlaggedBy");
@@ -345,11 +303,8 @@ public class Chat extends AppCompatActivity {
                 Map flagInfo = new HashMap<>();
                 flagInfo.put("Reasons", item);
                 reasonsDB.setValue(flagInfo);
-
                 Toast.makeText(Chat.this, "Thank you for flagging this user,\nBy default, the will be deleted from you matches list", Toast.LENGTH_LONG).show();
-
                 unmatchFlaggedUser();
-
             }
         });
 
@@ -361,19 +316,15 @@ public class Chat extends AppCompatActivity {
                 dialogInterface.dismiss();
             }
         });
-
-
         AlertDialog mDialog = mBuilder.create();
         mDialog.show();
     }
-
     public void unmatchAlertDialog ()
     {
         final AlertDialog.Builder builder = new AlertDialog.Builder(Chat.this);
         builder.setTitle("Unmatch this user");
         builder.setMessage("Are you sure you want to Unmatch this user?");
         builder.setCancelable(false);
-
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener()
         {
             @Override
@@ -381,6 +332,36 @@ public class Chat extends AppCompatActivity {
             {
                 unmatchFlaggedUser();
                 Toast.makeText(Chat.this, "User is unmatched", Toast.LENGTH_LONG).show();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i)
+            {
+                dialogInterface.dismiss();
+            }
+        });
+        AlertDialog mDialog = builder.create();
+        mDialog.show();
+    }
+    public void clearChatAlertDialog ()
+    {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(Chat.this);
+        builder.setTitle("Delete this conversation");
+        builder.setMessage("Are you sure you want to delete this conversation? This action cannot be undone");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i)
+            {
+                myProgressDialog2.setMessage("Deleting conversation...");
+                myProgressDialog2.show();
+                clearConversation();
+                Intent intent = new Intent(Chat.this, Matches.class);
+                startActivity(intent);
+                Toast.makeText(Chat.this, "Conversation is deleted successfully", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -396,7 +377,9 @@ public class Chat extends AppCompatActivity {
         AlertDialog mDialog = builder.create();
         mDialog.show();
     }
-
-
-
+    public void clearConversation ()
+    {
+        DatabaseReference ChatDB = FirebaseDatabase.getInstance().getReference().child("Chat");
+        ChatDB.child(chatId).removeValue();
+    }
 }

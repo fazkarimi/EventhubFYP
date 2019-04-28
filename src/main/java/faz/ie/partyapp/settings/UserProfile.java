@@ -111,7 +111,7 @@ public class UserProfile extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType("image/*");
                 startActivityForResult(intent,1);
-                //finish();
+
 
             }
         });
@@ -132,8 +132,6 @@ public class UserProfile extends AppCompatActivity {
                 myProgressDialog2.setMessage("Updating Information...");
                 myProgressDialog2.show();
                 updateUserInformation();
-                //Toast.makeText(UserProfile.this, "Information Updated", Toast.LENGTH_SHORT).show();
-
             }
         });
 
@@ -171,7 +169,6 @@ public class UserProfile extends AppCompatActivity {
                                 Glide.with(getApplication()).load(profileImageUrl).into(mProfileImage);
                                 break;
                         }
-                       // Glide.with(getApplication()).load(profileImageUrl).into(mProfileImage);
                     }
                 }
             }
@@ -233,7 +230,7 @@ public class UserProfile extends AppCompatActivity {
             uploadTask.addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    //finish();
+
                     Toast.makeText(UserProfile.this, "error!!!", Toast.LENGTH_SHORT).show();
                 }
             });

@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "1686567941-d2d510t52r041pnl0qor7s7ub2iha14a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "faz.ie.partyapp",
+            "certificate_hash": "e927fa015d8c34379c641993d5138111033cd026"
+          }
+        },
+        {
           "client_id": "1686567941-30b75c1r25nocq1bdgrvk0akl3gq3j21.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -33,20 +41,13 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
               "client_id": "1686567941-30b75c1r25nocq1bdgrvk0akl3gq3j21.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
-        },
-        "ads_service": {
-          "status": 2
         }
       }
     }

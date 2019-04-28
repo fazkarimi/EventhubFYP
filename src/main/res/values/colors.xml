@@ -22,7 +22,7 @@
     <color name="message_end">#EE00AA</color>
     <color name="swiping_start">#FFFFFF</color>
     <color name="swiping_end">#D3AF00</color>
-
+    <color name="DarkGrey">#1D1D1D</color>
     <color name="black">#000000</color>
 
     <!-- Walkthrough colors -->

@@ -19,9 +19,9 @@
             android:id="@+id/recyclerView"
             class="android.support.v7.widget.RecyclerView"
             android:layout_width="match_parent"
-            android:layout_marginTop="5dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"></view>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+        </view>
 
     </android.support.v4.widget.NestedScrollView>
     <LinearLayout
@@ -31,7 +31,6 @@
         android:orientation="horizontal"
         android:paddingBottom="10dp"
         android:paddingLeft="5dp"
-        android:paddingVertical="5dp"
         android:paddingEnd="10dp"
         android:paddingRight="5dp"
         android:layout_alignParentBottom="true">

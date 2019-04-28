@@ -150,7 +150,7 @@ public class SignUpInformationEntry extends AppCompatActivity {
 
                 {
                     //DO EVERYTHING IN HERE
-                    checkIfEmailAlreadyExists();
+                   // checkIfEmailAlreadyExists();
 
                     final int selectID = mRadioButtonGroup.getCheckedRadioButtonId();
 
@@ -181,10 +181,7 @@ public class SignUpInformationEntry extends AppCompatActivity {
                                     userInfo.put("profileImageUrl", "defaultUserImage");
 
                                     currentUserDB.updateChildren(userInfo);
-                                    Intent intent = new Intent(SignUpInformationEntry.this, LoginInformationEntry.class);
-                                    startActivity(intent);
-
-                                   // checkIfEmailIsVerifiedForAttendingUsers();
+                                   checkIfEmailIsVerifiedForAttendingUsers();
 
                                 }
 
@@ -270,14 +267,15 @@ public class SignUpInformationEntry extends AppCompatActivity {
 
                         Intent intent = new Intent(SignUpInformationEntry.this, LoginInformationEntry.class);
                         startActivity(intent);
-                        Toast.makeText(SignUpInformationEntry.this, "Sign Up was successful!\nA verification link has been sent to "+Email+"\nPlease verify your Email Address and then Log in", Toast.LENGTH_LONG).show();
-
                         mAuth.signOut();
                         finish();
+                        Toast.makeText(SignUpInformationEntry.this, "Sign Up was successful!\nA verification link has been sent to "+Email+"\nPlease verify your Email Address and then Log in", Toast.LENGTH_LONG).show();
+
                     }
                     else
                     {
-                        Toast.makeText(SignUpInformationEntry.this, "Email Verification was not sent!", Toast.LENGTH_SHORT).show();
+                        String message = task.getException().getMessage();
+                        Toast.makeText(SignUpInformationEntry.this, "Email Verification was not sent! " + message, Toast.LENGTH_SHORT).show();
 
                     }
                 }

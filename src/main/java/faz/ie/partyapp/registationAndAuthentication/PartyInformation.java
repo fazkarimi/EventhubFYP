@@ -29,14 +29,11 @@ public class PartyInformation extends AppCompatActivity {
 
     private Button mNextButton;
     private EditText mPartyName,mHostName, mCounty,mPartyDescription, mEventLocationPostcode;
-
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
     String hostingUserEmail;
     String currentUser;
-
     private DatabaseReference mDatabaseReference;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,36 +43,27 @@ public class PartyInformation extends AppCompatActivity {
         firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                //Log.v("partyApp",firebaseAuth.toString());
                 final FirebaseUser user =  FirebaseAuth.getInstance().getCurrentUser();
                 if (user != null)
-                {
-                    /*Intent intent = new Intent(PartyInformation.this, MainActivity.class);
-                    startActivity(intent);*/
-                }
+                { }
             }
         };
-
         currentUser = mAuth.getCurrentUser().getUid();
         mNextButton = (Button)findViewById(R.id.nextButton);
         mHostName = (EditText) findViewById(R.id.hostNameTxtField);
         mCounty = (EditText) findViewById(R.id.countyTxtField);
         mPartyDescription = (EditText) findViewById(R.id.partyDescriptionTxtField);
         mPartyName = (EditText) findViewById(R.id.partyNameTxtField);
-
         hostingUserEmail = getIntent().getExtras().getString("Email");
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
-
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
 
                 final String PartyName = mPartyName.getText().toString().trim();
                 final String HostName = mHostName.getText().toString().trim();
                 final String County = mCounty.getText().toString().trim();
                 final String PartyDescription = mPartyDescription.getText().toString().trim();
-                //int selectID = mRadioButtonGroup.getCheckedRadioButtonId();
 
                 if(PartyName.isEmpty()||HostName.isEmpty()||County.isEmpty()||PartyDescription.isEmpty())
                 {
@@ -84,20 +72,14 @@ public class PartyInformation extends AppCompatActivity {
                 }
 
                 Event partyInfo = new Event(PartyName,HostName,County,PartyDescription);
-
-                //String userID = mAuth.getCurrentUser().getUid();
-
                 DatabaseReference currentUserDB1 = FirebaseDatabase.getInstance().getReference().child("Users")
                    .child(currentUser).child("Event Information");
-
                 currentUserDB1.setValue(partyInfo);
                 Intent intent = new Intent(PartyInformation.this, LoginInformationEntry.class);
                 startActivity(intent);
-               // checkIfEmailIsVerifiedForHostingUsers();
-
+                checkIfEmailIsVerifiedForHostingUsers();
             }
         });
-
     }
 
     private void checkIfEmailIsVerifiedForHostingUsers()
@@ -115,9 +97,9 @@ public class PartyInformation extends AppCompatActivity {
                         final String Email = hostingUserEmail;
                         Intent intent = new Intent(PartyInformation.this, LoginInformationEntry.class);
                         startActivity(intent);
-                        Toast.makeText(PartyInformation.this, "Sign successful!\nA verification link has been sent to "+Email+"\nPlease verify your Email Address and then log in", Toast.LENGTH_LONG).show();
                         mAuth.signOut();
                         finish();
+                        Toast.makeText(PartyInformation.this, "Sign successful!\nA verification link has been sent to "+Email+"\nPlease verify your Email Address and then log in", Toast.LENGTH_LONG).show();
                     }
                     else
                     {

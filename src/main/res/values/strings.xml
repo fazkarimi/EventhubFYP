@@ -34,11 +34,15 @@
     <string name="key_delete_account">key_delete_account</string>
     <string name="key_goto_profile">key_goto_profile</string>
 
+
     <!-- action bar button strings -->
     <string name="actionbarProfile"></string>
     <string name="actionbarMain">1.0</string>
 
     <string name="numberOfAttempts">Number of attempts: 5</string>
+
+    <string name="forgotPassText">Please enter the email address you signed up with below, Once you click send email, we will send
+    you an email with a link to reset the password. Make sure you enter the Email Address correctly</string>
 
     <!-- Example General settings -->
     <string name="pref_header_general">General</string>
@@ -73,6 +77,7 @@
         <item>This account is fake</item>
         <item>Threatening/Unsafe</item>
         <item>Bullying</item>
+        <item>Other</item>
         <item>No reason</item>
     </string-array>
 
